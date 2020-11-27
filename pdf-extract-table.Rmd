@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 다양한 데이터 가져오기
+title: "PDF를 데이터로 보는 올바른 자세"
 subtitle: "기계판독 가능한 PDF 문서에서 표추출"
 author:
 - name: "이광춘"

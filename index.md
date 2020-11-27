@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 다양한 데이터 가져오기
+title: "PDF를 데이터로 보는 올바른 자세"
 ---
 
 > ### AI is a Superpower {.callout}
@@ -13,7 +13,7 @@ title: 다양한 데이터 가져오기
 
 ## 학습목차 
 
-- **[PDF 문서](ds-extract-pdf.html)**
+- [PDF 문서 살펴보기](ds-extract-pdf.html)
     - [PDF 감옥에서 데이터를 탈출시키다.](ds-extract-text-from-pdf-survey.html)
     - [기계판독 가능한 테이블(표)](ocr-table.html)
         - [기계판독 가능한 PDF 문서에서 표추출](pdf-extract-table.html)
