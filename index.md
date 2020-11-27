@@ -15,14 +15,14 @@ title: "PDF를 데이터로 보는 올바른 자세"
 
 - [PDF 문서 살펴보기](ds-extract-pdf.html)
     - [PDF 감옥에서 데이터를 탈출시키다.](ds-extract-text-from-pdf-survey.html)
-    - [기계판독 가능한 테이블(표)](ocr-table.html)
-        - [기계판독 가능한 PDF 문서에서 표추출](pdf-extract-table.html)
+    - [기계판독 가능한 PDF 문서에서 표추출](pdf-extract-table.html)
     - [문서(`tika`)](ingest-tika.html)
         - [CV 제작](create-cv.html)
     - [PDF &rarr; 워드 - 리브레오피스(LibreOffice)](libreOffice-pdf-word.html)
 - **이미지 PDF**
     - [이미지 PDF 파일 데이터 추출](ds-extract-text-from-pdf.html)
     - [~~기계판독~~ **불**가능한 PDF 문서에서 표추출](pdf-image-extract-table.html)
+    - [OCR:: 기계판독 가능한 테이블(표)](ocr-table.html)
 - **광학문자인식(OCR, Optical Character Recognition)**
     - [검정배경 흰색글자 인식](ocr-white-character.html)
     - [문자 분리(character segmentation)](ocr-white-segmentation.html)
