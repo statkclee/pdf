@@ -15,7 +15,8 @@ title: 다양한 데이터 가져오기
 
 - **[PDF 문서](ds-extract-pdf.html)**
     - [PDF 감옥에서 데이터를 탈출시키다.](ds-extract-text-from-pdf-survey.html)
-    - [기계판독 가능한 PDF 문서에서 표추출](pdf-extract-table.html)
+    - [기계판독 가능한 테이블(표)](ocr-table.html)
+        - [기계판독 가능한 PDF 문서에서 표추출](pdf-extract-table.html)
     - [문서(`tika`)](ingest-tika.html)
         - [CV 제작](create-cv.html)
     - [PDF &rarr; 워드 - 리브레오피스(LibreOffice)](libreOffice-pdf-word.html)
@@ -25,7 +26,6 @@ title: 다양한 데이터 가져오기
 - **광학문자인식(OCR, Optical Character Recognition)**
     - [검정배경 흰색글자 인식](ocr-white-character.html)
     - [문자 분리(character segmentation)](ocr-white-segmentation.html)
-    - [기계판독 가능한 테이블(표)](ocr-table.html)
     - [애비(Abbyy): Access Abbyy Cloud OCR from R](ocr-abbyy.html)
     - **[문자인식(OCR) - `tesseract`](ingest-ocr.html)**
     - [PPT 장표 - OCR `tesseract`](ingest-ocr-ppt.html)
