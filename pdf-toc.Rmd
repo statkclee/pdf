@@ -1,0 +1,189 @@
+---
+layout: page
+title: "PDF를 데이터로 보는 올바른 자세"
+subtitle: "PDF 파일 목차 (Table of Contents)"
+author:
+- name: "이광춘"
+  affiliation: "[Tidyverse Korea](https://www.facebook.com/groups/tidyverse/)"
+date: "`r Sys.Date()`"
+tags: ["데이터 과학", "Data Science", "데이터 사이언스", "PDF", "목차", "Table of Contents", "TOC"]
+output:
+  html_document: 
+    include:
+      after_body: footer.html
+      before_body: header.html
+    theme: journal
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+    highlight: tango
+    code_folding: show
+    number_section: true
+    self_contained: true
+bibliography: bibliography_pdf.bib
+csl: biomed-central.csl
+urlcolor: blue
+linkcolor: blue
+editor_options: 
+  chunk_output_type: console
+---
+
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE,
+                    comment="", digits = 3, tidy = FALSE, prompt = FALSE, fig.align = 'center')
+
+library(tidyverse)
+```
+
+
+# 목차 {#toc-pdf-files}
+
+목차(Table of Contents)는 문서를 구성하는 주요 구성항목 중 하나다. [금융감독원 다트(Dart)](http://dart.fss.or.kr/)에서 4대 회계법인 사업보고서를 다운로드 받아 보고서에서 목차를 추출해낸다.
+
+## 삼정 KPMG - `pdf_toc()` {#toc-pdf-kpmg}
+
+먼저 "삼정회계법인" 감사보고서에서 목차를 추출한다. `pdftools` 팩키지에서 `pdf_toc()` 함수를 사용한다.
+
+```{r extract-toc}
+library(tidyverse)
+library(pdftools)
+
+kpmg_pdf <- "data/[삼정회계법인]회계법인사업보고서(2020.06.29).pdf"
+
+kpmg_toc_list <- pdftools::pdf_toc(kpmg_pdf)
+
+kpmg_toc <- kpmg_toc_list %>% 
+  pluck("children")  %>% 
+  map_chr("title") %>%
+  str_trim() %>% 
+  str_remove_all(" ")
+
+kpmg_toc
+```
+
+상기 스크립트를 함수로 제작하여 나머지 다른 회사(삼일, 안진, 한영)에 대한 사업보고서 목차도 추출한다.
+`toc_extract()` 함수를 제작하여 앞서 스크립트로 제작한 코드를 최대한 재활용한다.
+
+```{r extract-toc-function}
+
+toc_extract <- function(annual_report) {
+  report_toc_list <- pdftools::pdf_toc(annual_report)
+
+  report_toc <- report_toc_list %>% 
+    pluck("children")  %>% 
+    map_chr("title") %>%
+    str_trim() %>% 
+    str_remove_all(" ")
+  
+  return(report_toc)
+}
+
+toc_extract(kpmg_pdf)
+```
+
+이제 나머지 회사에 대해서도 동일한 작업을 하여 사업보고서 목차의 일관성에 대해서 살펴보자.
+
+```{r extract-toc-function-run}
+accounting_firms <- fs::dir_ls(path = "data/", glob = "*(2020*.pdf")
+
+toc_firms_list <- map(accounting_firms, toc_extract)
+
+toc_firms_list %>% 
+  enframe() %>% 
+  # mutate(firm_name = str_extract_all(name, "[pdf|2020]") ) %>% 
+  mutate(firm_name = str_extract(name, pattern = "(?<=\\[).*?(?=\\])")) %>% 
+  select(firm_name, value) %>% 
+  unnest_auto(value) %>% 
+  count(value)
+```
+
+## 삼정 KPMG - `pdf_toc()` {#toc-pdf-kpmg-pdf-toc}
+
+`pdf_info(filename) %>% pluck("pages")` 방식으로 전체 PDF 파일에서 "목차"를 찾아야하지만, 목차는 문서의 앞부분에 위치하는 대체로 관계대로 첫장부터 10장까지 목차가 들어가는 페이지와 "사업보고서" 가 들어가는 장을 찾아 이를 뽑아낸다.
+
+```{r extract-toc-with-text-function}
+
+find_toc_page <- function(filename) {
+  
+  ## PDF file pages
+  pdf_file_pages <- pdf_info(filename) %>% pluck("pages")
+
+  ## PDF 페이지별 텍스트 저장 리스트
+  pdf_text_pages <- list()
+
+  ## PDF 페이지별 텍스트 저장: 앞쪽 10페이지만 검색
+  for( i in 1:10) {
+    pdf_pages <- pdftools::pdf_subset(filename, pages= i)
+    pdf_text_pages[[i]] <- pdftools::pdf_text(pdf_pages)
+  }
+
+  ## PDF 페이지별 목차가 들어간 페이지 확인
+  pdf_text_pages_df <- pdf_text_pages %>% 
+    map(str_remove_all, pattern = " ") %>%  
+    str_match(pattern = "목차|사업보고서") %>% 
+    as_tibble()
+  
+  ## PDF 목차 페이지 추출
+  toc_page_start_number <- which(pdf_text_pages_df$V1 == "목차")
+  toc_page_end_number <- which(pdf_text_pages_df$V1 == "사업보고서") %>% as.integer()
+  
+  return(glue::glue("{toc_page_start_number} : {toc_page_end_number - 1}"))
+}
+
+find_toc_page_safely <- safely(find_toc_page, otherwise = NA_integer_)
+
+find_toc_page_safely(kpmg_pdf)
+```
+
+이제 나머지 문서에 대해 목차가 시작되는 페이지와 목차가 끝나는 페이지를 추출한다.
+
+```{r extract-toc-with-text}
+toc_pages_list <- map(accounting_firms, find_toc_page_safely)
+
+toc_pages_df <- toc_pages_list %>% 
+  enframe() %>% 
+  mutate(firm_name = str_extract(name, pattern = "(?<=\\[).*?(?=\\])")) %>% 
+  select(firm_name, value) %>% 
+  unnest_auto(value) %>% 
+  unnest(result) %>% 
+  separate(result, into = c("start", "end"), sep=":", convert = TRUE) %>% 
+  group_by(firm_name, start) %>% 
+  summarise(end = min(end)) ## 안진 정정신고 사항 반영
+
+toc_pages_df
+```
+
+이제 가장 큰 제목에 달린 목차만 추출하는 것이 아니라 목차에 포함된 모든 큰제목, 작은제목에 달린 모든 텍스트를 추출하여 이와 연결된 페이지수도 함께 추출한다.
+
+
+```{r extract_pages-from-kpmg}
+kpmg_toc_text <- pdftools::pdf_subset(kpmg_pdf, pages= 1:2) %>% 
+  pdf_text()
+
+kpmg_toc_list <- kpmg_toc_text %>% 
+  str_split(pattern = "\n")
+
+listviewer::jsonedit(kpmg_toc_list)
+
+kpmg_finstr_toc_df <- kpmg_toc_list %>% 
+  enframe() %>% 
+  unnest(value) %>% 
+  mutate(pages = str_extract(value, pattern = "[0-9]+$")) %>% 
+  mutate(title = str_remove_all(value, "[0-9]+$")) %>% 
+  mutate(title = str_remove_all(title, "\\.")) %>% 
+  # mutate(title = str_extract_all(value, pattern = "^.*? \\.")) %>% 
+  select(title, pages) %>% 
+  unnest(title) %>% 
+  mutate(title = str_remove_all(title, " "))
+
+kpmg_finstr_toc_df %>% 
+  DT::datatable()
+```
+
+`_output.pdf` 파일 생성된 결과 삭제하여 다음 작업에도 문제가 없도록 조치를 취해둠.
+
+```{bash clean-ouptut-files}
+rm data/*_output.pdf
+```
+
