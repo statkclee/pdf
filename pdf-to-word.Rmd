@@ -19,7 +19,7 @@ output:
     highlight: tango
     code_folding: show
     number_section: true
-    self_contained: false
+    self_contained: true
 bibliography: bibliography_pdf.bib
 csl: biomed-central.csl
 urlcolor: blue
@@ -100,6 +100,7 @@ GUI를 사용해서 PDF 파일을 "Export PDF" 기능으로 워드 파일로 변
 
 ![](fig/trigger-pdf-action.png)
 
+특히 변환된 PDF 파일 앞쪽 혹은 뒤쪽에 접두어(`prefix`)나 접미어를 붙여 식별을 용이하게 하고 다음 후속처리에 수월함을 더한다.
 
 ```{r check-word-conversion}
 fs::dir_ls(path="data/word_files/")
