@@ -19,7 +19,7 @@ output:
     highlight: tango
     code_folding: show
     number_section: true
-    self_contained: true
+    self_contained: false
 bibliography: bibliography_pdf.bib
 csl: biomed-central.csl
 urlcolor: blue
@@ -75,3 +75,33 @@ pandoc paper.tex \
 # 리브레오피스 &rarr; 워드 {#libreoffice-to-word}
 
 리브레오피스(LibreOffice)를 구성하는 `Writer`는 원래 목적이 워드를 대체하기 위해 만들어졌기 때문에 PDF 파일을 입력으로 받아 워드 파일로 내보낸다는 것이 철학에 반한다.
+
+
+# Acrobat: `.pdf` &rarr; `.docx` {#convert-pdf-to-word-with-action}
+
+아도브(Adobe) 회사의 애크로뱃 제품(Adobe Acrobat Pro)을 사용해서 PDF 파일을 워드로 변환시켜보자.
+
+## PDF 파일 하나 {#single-pdf-file}
+
+GUI를 사용해서 PDF 파일을 "Export PDF" 기능으로 워드 파일로 변환시킬 수 있다.
+"Export PDF" 다음에 "Microsoft Word"를 선택하고 "Word Document"를 선택할 경우 워드파일로 변환시킬 수 있다.
+
+
+![](fig/single-pdf-to-world.png)
+
+## 다수 PDF 파일 {#many-pdf-files}
+
+만약, PDF 파일이 많은 경우 이와 같은 방식으로 작업하는 것이 경우에 따라서는 불가능하다. 이를 위해서 자동화가 필수적인데 먼저 "Action Wizard"를 통해 자동화 선택옵션을 지정하여 `PDF2WORD` 액션을 생성시킨다.
+
+
+![](fig/make-pdf-action.png)
+
+다음으로 `PDF2WORD` 액션을 실행시켜 PDF 파일을 내보내기하여 워드파일을 다량으로 만들어낸다.
+
+![](fig/trigger-pdf-action.png)
+
+
+```{r check-word-conversion}
+fs::dir_ls(path="data/word_files/")
+```
+
