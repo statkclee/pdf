@@ -27,6 +27,8 @@ urlcolor: blue
 linkcolor: blue
 editor_options: 
   chunk_output_type: console
+header-includes:
+   - \usepackage{gensymb}
 ---
 
 ```{r setup, include=FALSE}
@@ -61,6 +63,8 @@ knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
 
 -   `unicode`: **유니코드(Unicode)**는 전 세계의 모든 문자를 컴퓨터에서 일관되게 표현하고 다룰 수 있도록 설계된 산업 표준이며, 유니코드 협회(Unicode Consortium)가 제정한다. 이 표준에는 ISO 10646 문자 집합, 문자 인코딩, 문자 정보 데이터베이스, 문자들을 다루기 위한 알고리즘 등을 포함하고 있다. 유니코드의 기원은 1987년으로 거슬러 올라가며, 이 때 제록스의 조 베커와 애플의 리 콜린스, 마크 데이비스가 통일된 문자 집합을 만드는 것을 탐구하기 시작하였다. 1988년 조 베커는 유니코드라는 이름의 국제/다언어 문자 인코딩 시스템(international/multilingual text character encoding system, tentatively called Unicode)를 위한 초안을 출판하였다.
 
+-   UTF-8 (Unicode Transformation Format, RFC 3629): 유니코드를 위한 가변 길이 문자 인코딩 방식 중 하나로, 켄 톰프슨과 롭 파이크가 만들었다. UTF-8 인코딩은 유니코드 한 문자를 나타내기 위해 1바이트에서 4바이트까지를 사용한다. 예를 들어서, U+0000부터 U+007F 범위에 있는 ASCII 문자들은 UTF-8에서 1바이트만으로 표시된다.
+
 -   `glyphs`:
 
 -   `ascender`:
@@ -69,9 +73,9 @@ knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
 
 -   `tracking`:
 
--   `hinting`:
+-   `hinting`: 래스터 격자(rasterized grid)에 줄맞추는 과정
 
--   `kerning`:
+-   `kerning`: 문자사이에 공간을 조정하는 과정
 
 -   `shaping`:
 
@@ -309,13 +313,15 @@ ggplot() +
   theme_gray(base_family = "Noto Sans CJK KR")
 ```
 
-# 현지화/세계화 {#localization}
+# 현지화/세계화 [^internationalization] {#localization}
+
+[^internationalization]: [Carol Oliver, "Internationalization Part I: Unicode and Character Encodings"](https://slideplayer.com/slide/7684069/)
 
 현지화(Localization)은 세계화(internationalization)의 동전의 양면과 같은 것이다. 세계화를 영어로 internationalization으로 길기 때문에 i18n으로 줄여서 현지화는 영어로 Localization으로 길기 때문에 동일한 로직으로 L10N으로 줄여 표현한다. 현지화에 해당되는 사항은 다음이 포함된다.
 
 - 문자 집합(Character Set)
 - 통화(Currency)
-- 날씨 온도($\degree C / \degree F$)
+- 날씨 온도($^{\circ} C / ^{\circ} F$)
 - 길이 (킬로미터, 마일)
 - 날짜와 시간 (Date and Time)
 - 키보드 배열
@@ -338,17 +344,37 @@ When things go wrong, start by asking what the encoding is, what encoding you ex
 - Coded Character Set: A set of characters in which each character is assigned a numeric identifier.
 - Character Encoding Form: Mpas code points to code units
 
-## 인코딩 문제 [^encoding-problem] {#encoding-problem}
+## 인코딩 문제 [^encoding-problem] [^joel-on-sw] {#encoding-problem}
 
 [^encoding-problem]: [나무위키, "문자 깨짐"](https://namu.wiki/w/%EB%AC%B8%EC%9E%90%20%EA%B9%A8%EC%A7%90)
 
+[^joel-on-sw]: [OCTOBER 8, 2003 by JOEL SPOLSKY, "The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)", JOEL ON SOFTWARE](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)
+
 문자 인코딩(Encoding) 관련하여 크게 3가지 흔한 문제가 있다.
 
-- 두부(Tofu)
-- 문자깨짐(Mojibake, 文字化け): 일본어에서는 문자 깨짐을 모지바케라고 부름.
-- 의문부호(Question Marks)
+- 두부(Tofu): 텅빈 사각형 상자로 컴퓨터 입장에서 해당 문자가 뭔지는 알겠는데 화면에 무엇을 출력할지는 모른다는 것을 나타냄.
+- 문자깨짐(Mojibake, 文字化け): 일본어에서는 문자 깨짐을 모지바케라고 부름. 특정 인코딩에서 텍스트를 다른 인코딩으로 해석할 때 문자 깨짐이 발생.
+- 의문부호(Question Marks): 보통 특정 문자에서 다른 문자로 텍스트를 변환할 때 발생함.
 
 
 ![](fig/common-encoding-problem.png)
 
+## 유니코드 변환기 {#convert-unicode}
+
+`rlang` 팩키지 `chr_unserialise_unicode()` 함수를 사용하면 유니코드 코드 포인트(code point)를 읽을 수 있는 문자로 변환시킬 수 있다.
+
+```{r hello-convert}
+# 한자 幸(다행 행)
+ascii <- "<U+5E78>"
+rlang::chr_unserialise_unicode(ascii)
+
+# Hello
+hello <- "<U+0048> <U+0065> <U+006C> U+006C <U+006F>"
+rlang::chr_unserialise_unicode(hello)
+
+# 대한민국
+korea <- "<U+B300><U+D55C><U+BBFC><U+AD6D>"
+rlang::chr_unserialise_unicode(korea)
+
+```
 
