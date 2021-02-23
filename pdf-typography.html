@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+<meta name="date" content="2021-02-23" />
+
+<title>PDF를 데이터로 보는 올바른 자세</title>
+
+<script src="pdf-typography_files/header-attrs-2.6/header-attrs.js"></script>
+<script src="pdf-typography_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="pdf-typography_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="pdf-typography_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="pdf-typography_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="pdf-typography_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="pdf-typography_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="pdf-typography_files/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="pdf-typography_files/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="pdf-typography_files/navigation-1.1/tabsets.js"></script>
+<script src="pdf-typography_files/navigation-1.1/codefolding.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+
+.sourceCode .row {
+  width: 100%;
+}
+.sourceCode {
+  overflow-x: auto;
+}
+.code-folding-btn {
+  margin-right: -30px;
+}
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+<!-- <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+<link rel="stylesheet" type="text/css" href="css/swc.css" />  -->
+<link rel="alternate" type="application/rss+xml" title="Tidyverse Korea" href="https://www.facebook.com/groups/tidyverse/"/>
+<meta charset="UTF-8" />
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+  <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-59802572-23"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-59802572-23');
+</script>
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">PDF를 데이터로 보는 올바른 자세</h1>
+<h3 class="subtitle">글꼴(font)</h3>
+<h4 class="author">이광춘</h4>
+<address class="author_afil">
+<a href="https://www.facebook.com/groups/tidyverse/">Tidyverse Korea</a><br><h4 class="date">2021-02-23</h4>
+
+</div>
+
+
+<center>
+<img src="fig/anatomy-of-typography.jpg" width="360" />
+</center>
+<div id="localization" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> 현지화/세계화<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></h1>
+<p>현지화(Localization)은 세계화(internationalization)의 동전의 양면과 같은 것이다. 세계화를 영어로 internationalization으로 길기 때문에 i18n으로 줄여서 현지화는 영어로 Localization으로 길기 때문에 동일한 로직으로 L10N으로 줄여 표현한다. 현지화에 해당되는 사항은 다음이 포함된다.</p>
+<ul>
+<li>문자 집합(Character Set)</li>
+<li>통화(Currency)</li>
+<li>날씨 온도(<span class="math inline">\(^{\circ} C / ^{\circ} F\)</span>)</li>
+<li>길이 (킬로미터, 마일)</li>
+<li>날짜와 시간 (Date and Time)</li>
+<li>키보드 배열</li>
+<li>왼쪽에서 오른쪽으로 혹은 위에서 아래 혹은 우측에서 좌측으로 텍스트 작성과 문서 양식(Text Directions and Layouts)</li>
+</ul>
+<div id="encoding-charset" class="section level2" number="1.1">
+<h2 number="1.1"><span class="header-section-number">1.1</span> 인코딩 (Encoding)</h2>
+<p><strong>문자 인코딩(character encoding)</strong> 줄여서 인코딩은 사용자가 입력한 문자나 기호들을 컴퓨터가 이용할 수 있는 신호로 만드는 것을 말한다. 넓은 의미의 컴퓨터는 이러한 신호를 입력받고 처리하는 기계를 뜻하며, 신호 처리 시스템을 통해 이렇게 처리된 정보를 사용자가 이해할 수 있게 된다.</p>
+<p>All text has a character encoding.</p>
+<p>When things go wrong, start by asking what the encoding is, what encoding you expected it to be, and whether the bytes match the encoding.</p>
+<ul>
+<li>Code Unit: A unit of physical storage and information interchange</li>
+<li>Glyph: A single shape (in text)</li>
+<li>Grapheme: A single visual unit of text: the smallest abstract unit of meaning in a writing system</li>
+<li>Character: A single logical unit of text</li>
+<li>Character Set: A set of characters</li>
+<li>Coded Character Set: A set of characters in which each character is assigned a numeric identifier.</li>
+<li>Character Encoding Form: Mpas code points to code units</li>
+</ul>
+</div>
+<div id="encoding-problem" class="section level2" number="1.2">
+<h2 number="1.2"><span class="header-section-number">1.2</span> 인코딩 문제<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></h2>
+<p>문자 인코딩(Encoding) 관련하여 크게 3가지 흔한 문제가 있다.</p>
+<ul>
+<li>두부(Tofu): 텅빈 사각형 상자로 컴퓨터 입장에서 해당 문자가 뭔지는 알겠는데 화면에 무엇을 출력할지는 모른다는 것을 나타냄.</li>
+<li>문자깨짐(Mojibake, 文字化け): 일본어에서는 문자 깨짐을 모지바케라고 부름. 특정 인코딩에서 텍스트를 다른 인코딩으로 해석할 때 문자 깨짐이 발생.</li>
+<li>의문부호(Question Marks): 보통 특정 문자에서 다른 문자로 텍스트를 변환할 때 발생함.</li>
+</ul>
+<p><img src="fig/common-encoding-problem.png" /></p>
+</div>
+<div id="convert-unicode" class="section level2" number="1.3">
+<h2 number="1.3"><span class="header-section-number">1.3</span> 유니코드 변환기</h2>
+<p><code>rlang</code> 팩키지 <code>chr_unserialise_unicode()</code> 함수를 사용하면 유니코드 코드 포인트(code point)를 읽을 수 있는 문자로 변환시킬 수 있다.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co"># 한자 幸(다행 행)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>ascii &lt;-<span class="st"> &quot;&lt;U+5E78&gt;&quot;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>rlang<span class="op">::</span><span class="kw">chr_unserialise_unicode</span>(ascii)</span></code></pre></div>
+<pre><code>[1] &quot;幸&quot;</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="co"># Hello</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>hello &lt;-<span class="st"> &quot;&lt;U+0048&gt; &lt;U+0065&gt; &lt;U+006C&gt; U+006C &lt;U+006F&gt;&quot;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>rlang<span class="op">::</span><span class="kw">chr_unserialise_unicode</span>(hello)</span></code></pre></div>
+<pre><code>[1] &quot;H e l U+006C o&quot;</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="co"># 대한민국</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>korea &lt;-<span class="st"> &quot;&lt;U+B300&gt;&lt;U+D55C&gt;&lt;U+BBFC&gt;&lt;U+AD6D&gt;&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>rlang<span class="op">::</span><span class="kw">chr_unserialise_unicode</span>(korea)</span></code></pre></div>
+<pre><code>[1] &quot;대한민국&quot;</code></pre>
+</div>
+</div>
+<div id="digital-typography" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> 디지털 타이포그래피<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></h1>
+<div id="font-formats" class="section level2" number="2.1">
+<h2 number="2.1"><span class="header-section-number">2.1</span> 글꼴 확장자</h2>
+<p>글리프(Glyph) 경계를 정의하는데 직선과 곡선으로 이루어진 벡터 이미지를 모아둔 것을 벡터 글꼴(Vector Font)라고 한다. Type 1, Type 3 포스트스크립 폰트(Postscript Font)는 3차 베지어 곡선, TrueType Fonts는 2차 베지어 곡선을 제작되었다.</p>
+<ul>
+<li>Type 1 (<code>.pfm</code>, <code>.pfb</code>): 3차 베지어 곡선으로 표현된 글리프(Glyph) 형태</li>
+<li>True Type (<code>.ttf</code>): 2차 베지어 곡선으로 표현된 글리프 형태</li>
+<li>Open Type (<code>.otf</code>): 2차 혹은 3차 베지어 곡선으로 표현된 글리프</li>
+<li>웹 오픈 폰트 (.woff): True Type 혹은 Open Type 을 압축</li>
+</ul>
+</div>
+<div id="freetype" class="section level2" number="2.2">
+<h2 number="2.2"><span class="header-section-number">2.2</span> 프리타입(FreeType)<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></h2>
+<p><strong>프리타입(FreeType, 번역: 자유 활자)</strong>은 C 언어로 작성된 소프트웨어 라이브러리이며 글꼴 래스터라이제이션 엔진을 제공한다. 문자열들을 비트맵으로 래스터 처리하며 다른 글꼴 관련 기능에 대한 지원을 제공한다. 프리타입은 텍스트 레이아웃이나 그래픽 처리와 같은 더 높은 수준의 기능을 수행하기 위한 API를 제공하지 않아 이를테면 렌더링은 지원하지 않지만, 단순하면서도 사용하기 쉽고 통일된 사용자 인터페이스를 제공하여 글꼴 파일의 내용에 접근할 수 있으므로 이러한 작업들을 매우 단순하게 만들어 준다.</p>
+</div>
+<div id="text-shaping" class="section level2" number="2.3">
+<h2 number="2.3"><span class="header-section-number">2.3</span> 텍스트 성형</h2>
+<p><strong>텍스트 성형(Text Shaping)</strong>은 유니코드와 같은 문자를 입력받아 글리프(Glyph) 형상을 만들어내는 것이다. <a href="https://harfbuzz.github.io/">HarfBuzz</a>가 가장 좋은 성능을 내는 것으로 알려져있으며 <code>ragg</code> 팩키지의 C 라이브러리를 <a href="https://github.com/r-lib/textshaping">textshaping</a>에 구현하여 R에서도 활용할 수 있게 되었다.</p>
+<p><img src="fig/text-rendering-pipeline.png" /></p>
+</div>
+</div>
+<div id="glossary" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> 주요 용어 정리<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a><a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></h1>
+<ul>
+<li><p><code>typography</code>: 타이포그래피(Typography)는 활자 서체의 배열을 말하는데, 활자의 서체나 글자 배치 따위를 구성하고 표현하는 일을 가리키는 용어. 활판술, 조판이라고 번역된다.</p>
+<ul>
+<li>‘활자’를 의미하는 ’Type’와’-술’을 의미하는 접미사 ’Graphy’의 합성어이다. 즉, 영어 단어 <code>typography</code>는 그리스어의 두 단어 τύπος(typos, 표시)와 γράφω(grapho, 쓰다)에서 유래된 조어이다.</li>
+</ul></li>
+<li><p>black letter</p></li>
+<li><p>폰트(font): 사전적 의미로 글자란 말을 적는 일정한 체계의 부호로 숫자와 문장부호가 포함. 영어로 letter, type, character, font가 같은 뜻을 갖고 있는데 좀더 물리적인 속성을 담고 있어 타입페이스(<code>typeface</code>)란 바로 이 금속활자의 찍히는 얼굴 면, 그 모양을 말하는 것임. 또한, 폰트(font)란 통일된 구조와 속성을 가진 한 벌의 기호나 글자를 지칭하며, 요즘은 같은 스타일을 가진 폰트 모두를 지칭할 때 같은 스타일의 폰트 묶음인 타입패밀리(type family)가 있음.</p></li>
+<li><p>이음자(Ligatures): 둘 이상의 글자를 자연스럽게 결합하는 것</p></li>
+<li><p>헬베티카(Helvetica) 타입 패밀리: 중량, 획 굵기에 관해서는 가느다랗고 경쾌한 라이트(light)부터 레귤러(regular), 미디엄(medium), 두껍고 무거운 볼드(bold) 등이 있고 글자 폭에 관해서는 익스펜디드(expanded), 레귤러(regular), 콘덴시드(condensed) 등이 있고, 이 변화 폭은 엑스트라 라이트, 울트라 볼드, 울트라 익스펜디드, 엑스트라 콘덴시드 등으로 더 나뉘기도 한다.</p></li>
+<li><p><code>typeface</code>:</p></li>
+<li><p><code>scripts</code>:</p></li>
+<li><p><code>noto</code>: <strong>노토(Noto)</strong>는 유니코드 표준으로 인코딩된 모든 언어를 커버하기위한 폰트 패밀리로 구글에서 개발시작했다. 이 글꼴은 여러 언어나 문자를 전체적인 시각적 조화(예를 들면, 서로 맞는 높이와 획의 굵기 등)를 이루는 것을 목표로 Apache License 2.0로 배포된다. 컴퓨터에서 표시 못하는 문자가 있을 때 문자 대신에 조그만 사각형(□)이 표시되는 일이 많이 있는데 이를 흔히 <strong>“두부”(tofu)</strong>라고 부르며, 구글은 Web 상에서 이를 없애기 위해서 Noto(No Tofu) 폰트를 개발했다.</p></li>
+</ul>
+<iframe width="300" height="200" src="https://www.youtube.com/embed/16_NYHUZ1kM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+<ul>
+<li><p><code>unicode</code>: <strong>유니코드(Unicode)</strong>는 전 세계의 모든 문자를 컴퓨터에서 일관되게 표현하고 다룰 수 있도록 설계된 산업 표준이며, 유니코드 협회(Unicode Consortium)가 제정한다. 이 표준에는 ISO 10646 문자 집합, 문자 인코딩, 문자 정보 데이터베이스, 문자들을 다루기 위한 알고리즘 등을 포함하고 있다. 유니코드의 기원은 1987년으로 거슬러 올라가며, 이 때 제록스의 조 베커와 애플의 리 콜린스, 마크 데이비스가 통일된 문자 집합을 만드는 것을 탐구하기 시작하였다. 1988년 조 베커는 유니코드라는 이름의 국제/다언어 문자 인코딩 시스템(international/multilingual text character encoding system, tentatively called Unicode)를 위한 초안을 출판하였다.</p></li>
+<li><p>UTF-8 (Unicode Transformation Format, RFC 3629): 유니코드를 위한 가변 길이 문자 인코딩 방식 중 하나로, 켄 톰프슨과 롭 파이크가 만들었다. UTF-8 인코딩은 유니코드 한 문자를 나타내기 위해 1바이트에서 4바이트까지를 사용한다. 예를 들어서, U+0000부터 U+007F 범위에 있는 ASCII 문자들은 UTF-8에서 1바이트만으로 표시된다.</p></li>
+<li><p><code>typography</code>: 타이포그래피(Typography)는 활자 서체의 배열을 말하는데, 활자의 서체나 글자 배치 따위를 구성하고 표현하는 일을 가리키는 용어.</p>
+<ul>
+<li>‘활자’를 의미하는 ’Type’와’-술’을 의미하는 접미사 ’Graphy’의 합성어이다. 즉, 영어 단어 <code>typography</code>는 그리스어의 두 단어 τύπος(typos, 표시)와 γράφω(grapho, 쓰다)에서 유래된 조어이다.</li>
+</ul></li>
+<li><p>black letter<br />
+</p></li>
+<li><p>폰트(font): 사전적 의미로 글자란 말을 적는 일정한 체계의 부호로 숫자와 문장부호가 포함. 영어로 letter, type, character, font가 같은 뜻을 갖고 있는데 좀더 물리적인 속성을 담고 있어 타입페이스(<code>typeface</code>)란 바로 이 금속활자의 찍히는 얼굴 면, 그 모양을 말하는 것임. 또한, 폰트(font)란 통일된 구조와 속성을 가진 한 벌의 기호나 글자를 지칭하며, 요즘은 같은 스타일을 가진 폰트 모두를 지칭할 때 같은 스타일의 폰트 묶음인 타입패밀리(type family)가 있음.</p></li>
+<li><p>이음자(Ligatures): 둘 이상의 글자를 자연스럽게 결합하는 것</p></li>
+<li><p>헬베티카(Helvetica) 타입 패밀리: 중량, 획 굵기에 관해서는 가느다랗고 경쾌한 라이트(light)부터 레귤러(regular), 미디엄(medium), 두껍고 무거운 볼드(bold) 등이 있고 글자 폭에 관해서는 익스펜디드(expanded), 레귤러(regular), 콘덴시드(condensed) 등이 있고, 이 변화 폭은 엑스트라 라이트, 울트라 볼드, 울트라 익스펜디드, 엑스트라 콘덴시드 등으로 더 나뉘기도 한다.</p></li>
+<li><p>서예(Calligraphy): 사전적 의미로 글씨를 붓으로 쓰는 예술, 컴퓨터 느낌으로 ‘손으로 그린 그림문자’, 쉽게 말해 ’손글씨’를 뜻함. 즉, 기계가 아닌 손으로 그려진 글씨라는 점에서 기존 타이포그래피와 차별된다. 문자를 그대로 나열하면 되는 영어 알파벳과 달리 자음과 모음의 결합으로 이뤄져 더 복잡한 형태를 갖게 되어, 하나의 글자를 개발하는데 더 많은 품이 들기 때문에 상대적으로 타이포그래피보다 서예가 더 우리나라에서 발달했다. 한글을 디지털로 표현하는 것보다는 손으로 직접 쓰는 아날로그 방식인 캘리그래피가 상대적으로 디자인하기 더 쉽기 때문에 더 발달하게 된 것이다.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p></li>
+</ul>
+<!-- -->
+<ul>
+<li><p>글리프(<code>glyphs</code>) 형태: 문자 골격을 표현하는 형태를 정의하기 위하여 사용된 문자 골격 표현의 정보 집합. 규범 표기는 미확정이다.</p></li>
+<li><p><code>ascender</code>:</p></li>
+<li><p><code>descender</code>:</p></li>
+<li><p><code>tracking</code>:</p></li>
+<li><p><code>hinting</code>: 래스터 격자(rasterized grid)에 줄맞추는 과정</p></li>
+<li><p><code>kerning</code>: 문자사이에 공간을 조정하는 과정</p></li>
+<li><p><code>shaping</code>:</p></li>
+<li><p><code>weight</code>:</p></li>
+<li><p><code>slant</code>:</p></li>
+</ul>
+<p><img src="fig/typography.png" /> ## 그래픽 장치 {#graphics-device}</p>
+</div>
+<div id="famous-font" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> 폰트 역사</h1>
+<ul>
+<li>Times New Roman (1932): The Times of London Newspaper</li>
+<li>Bookman Old Style (1858): Alexander Phemister in Edinburgh,Scotland</li>
+<li>Courier New (1955): IBM에 의해 시작된 모노스페이스(Monospaced Font) 1955년 Howard Kettler가 제작. 코딩에 적합</li>
+<li>Trebuchet MS: 1996년 마이크로소프트가 크기가 작고 저해상도에서 가독성이 높게 개발한 폰트.</li>
+<li>Comic Sans MS (1994): Comic Strips에 기반하여 윈도우 95에 포함되어 배포됨.</li>
+<li>Webdings (1997): 웹 디자이너의 요구에 의해서 웹페이지에 글자를 그림 문자로 출력하는 폰트. ’딩뱃(Dingbat)’이라는 특수글꼴중 하나로 옛날 조판을 할 때 쓰는 장식용 문자나 공백을 가리키는 말이다.</li>
+</ul>
+<div id="webdings" class="section level2" number="4.1">
+<h2 number="4.1"><span class="header-section-number">4.1</span> 웹딩체</h2>
+<p>윈딩(Windings), 웹딩체(Webdings)는 장식용 혹은 그림 문자를 표현하기 위해 과거 많이 사용되었다면 현재는 유니코드에 의해 많은 부분 대체되거나 이모지로 대체되었다.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">library</span>(extrafont)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a><span class="kw">loadfonts</span>()</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>mydata &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">6</span>),</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>                     <span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">4</span>), </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>                     <span class="dt">type =</span> <span class="kw">c</span>(<span class="st">&quot;start&quot;</span>, <span class="st">&quot;end&quot;</span>, <span class="st">&quot;start&quot;</span>, <span class="st">&quot;end&quot;</span>),</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>                     <span class="dt">symbols =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">3</span>))</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a><span class="co"># ggplot(data = mydata) +</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a><span class="co">#   geom_text(aes(x, y, label = symbols),</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a><span class="co">#           size = 8, family = &quot;Webdings&quot;)</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> mydata) <span class="op">+</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data =</span> mydata, <span class="kw">aes</span>(x, y, <span class="dt">shape =</span> type), <span class="dt">size =</span> <span class="dv">8</span>) <span class="op">+</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a><span class="st">  </span><span class="kw">scale_shape_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;\u25C4&quot;</span>,<span class="st">&quot;\u25BA&quot;</span>)) </span></code></pre></div>
+<p><img src="pdf-typography_files/figure-html/ggplot-webdings-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="famouse-fonts" class="section level2" number="4.2">
+<h2 number="4.2"><span class="header-section-number">4.2</span> 역사적 유명 폰트</h2>
+<p><img src="fig/famous-fonts.png" /></p>
+</div>
+<div id="visually-selected" class="section level2" number="4.3">
+<h2 number="4.3"><span class="header-section-number">4.3</span> <code>visually</code> 선정<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></h2>
+<div class="visually_embed">
+<img class='visually_embed_infographic' src='https://visual.ly/node/image/198960?_w=540' alt='Timeline of 10 Famous Fonts ' />
+<div class="visually_embed_cycle">
+
+</div>
+<script type='text/javascript' src='https://a.visual.ly/api/embed/198960?width=540' class='visually_embed_script' id='visually_embed_script_198960'></script>
+<p>
+From <a href='https://visual.ly?utm_source=content-embed&utm_medium=embed'>Visually</a>.
+</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="https://slideplayer.com/slide/7684069/">Carol Oliver, “Internationalization Part I: Unicode and Character Encodings”</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://namu.wiki/w/%EB%AC%B8%EC%9E%90%20%EA%B9%A8%EC%A7%90">나무위키, “문자 깨짐”</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/">OCTOBER 8, 2003 by JOEL SPOLSKY, “The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)”, JOEL ON SOFTWARE</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p><a href="https://www.slideshare.net/NicolasRougier1/siggraph-2018-digital-typography">ROUGIER (INRIA) &amp; B. ESFAHBOD (GOOGLE), “Digital typography”, SIGGRAPH 2018</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p><a href="https://ko.wikipedia.org/wiki/프리타입">위키백과 프리타입</a><a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p><a href="https://spoqa.github.io/2012/12/03/Typography.html">이경 (2012년 12월 03일), “타이포그래피 겉핥기”, spoqa 기술블로그</a><a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p><a href="https://gankra.github.io/blah/text-hates-you/">Alexis Beingessner (September 28th, 2019), “Text Rendering Hates You”</a><a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p><a href="https://wacomkoreablog.com/644">Wacom Blog (2015-05-27), “타이포그래피와 캘리그래피”</a><a href="#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p><a href="https://visual.ly/community/Infographics/computers/timeline-10-famous-fonts">Timeline of 10 Famous Fonts</a><a href="#fnref9" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+
+&nbsp;
+<hr />
+<p style="text-align: center;">데이터 과학자 <a href="https://github.com/statkclee/">이광춘</a> 저작</p>
+<p style="text-align: center;">
+    <span style="color: #808080;"><em>kwangchun.lee.7@gmail.com</em></span>
+</p>
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+    <a href="https://education.rstudio.com/trainers/people/lee+kwangchun/" class="fa fa-registered"></a>
+    <a href="https://www.facebook.com/groups/tidyverse/" class="fa fa-facebook"></a>
+    <a href="https://www.linkedin.com/in/kwangchunlee/" class="fa fa-linkedin"></a>
+    <a href="https://github.com/statkclee/" class="fa fa-github"></a>
+</p>
+&nbsp;
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
