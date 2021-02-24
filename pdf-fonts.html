@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2021-02-23" />
+<meta name="date" content="2021-02-24" />
 
 <title>PDF를 데이터로 보는 올바른 자세</title>
 
@@ -42,6 +42,7 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -385,7 +386,7 @@ div.tocify {
 <h3 class="subtitle">글꼴(font)</h3>
 <h4 class="author">이광춘</h4>
 <address class="author_afil">
-<a href="https://www.facebook.com/groups/tidyverse/">Tidyverse Korea</a><br><h4 class="date">2021-02-23</h4>
+<a href="https://www.facebook.com/groups/tidyverse/">Tidyverse Korea</a><br><h4 class="date">2021-02-24</h4>
 
 </div>
 
@@ -411,56 +412,57 @@ div.tocify {
 <p style="font-family: Nanum Pen Script; font-size:17pt; font-style:italic">
 <p>나눔고딕 폰트 테스트 중입니다.</p>
 </p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">library</span>(showtext)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>extrafont<span class="op">::</span><span class="kw">fonttable</span>()<span class="op">$</span>FamilyName</span></code></pre></div>
-<pre><code> [1] &quot;KoPubWorldBatang Bold&quot;       &quot;KoPubWorldBatang Light&quot;     
- [3] &quot;KoPubWorldBatang Medium&quot;     &quot;KoPubWorldDotum Bold&quot;       
- [5] &quot;KoPubWorldDotum Light&quot;       &quot;KoPubWorldDotum Medium&quot;     
- [7] &quot;NanumBarunGothic&quot;            &quot;NanumBarunGothic&quot;           
- [9] &quot;NanumBarunGothic Light&quot;      &quot;NanumBarunGothic UltraLight&quot;
-[11] &quot;NanumBarunpen&quot;               &quot;NanumBarunpen Bold&quot;         
-[13] &quot;Nanum Brush Script&quot;          &quot;NanumGothic&quot;                
-[15] &quot;NanumGothic&quot;                 &quot;NanumGothicCoding&quot;          
-[17] &quot;NanumGothicCoding&quot;           &quot;NanumGothicExtraBold&quot;       
-[19] &quot;NanumGothic Light&quot;           &quot;NanumMyeongjo&quot;              
-[21] &quot;NanumMyeongjo&quot;               &quot;NanumMyeongjoExtraBold&quot;     
-[23] &quot;Nanum Pen Script&quot;            &quot;NanumSquare Bold&quot;           
-[25] &quot;NanumSquare ExtraBold&quot;       &quot;NanumSquare Light&quot;          
-[27] &quot;NanumSquare&quot;                 &quot;NanumSquareRound Bold&quot;      
-[29] &quot;NanumSquareRound ExtraBold&quot;  &quot;NanumSquareRound Light&quot;     
-[31] &quot;NanumSquareRound Regular&quot;    &quot;Webdings&quot;                   </code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>extrafont<span class="sc">::</span><span class="fu">fonttable</span>()<span class="sc">$</span>FamilyName</span></code></pre></div>
+<pre><code> [1] &quot;NanumBarunGothic&quot;            &quot;NanumBarunGothic YetHangul&quot; 
+ [3] &quot;NanumBarunGothic&quot;            &quot;NanumBarunGothic Light&quot;     
+ [5] &quot;NanumBarunGothic UltraLight&quot; &quot;NanumBarunpen&quot;              
+ [7] &quot;NanumBarunpen Bold&quot;          &quot;Nanum Brush Script&quot;         
+ [9] &quot;NanumGothic&quot;                 &quot;NanumGothic&quot;                
+[11] &quot;NanumGothicCoding&quot;           &quot;NanumGothicCoding&quot;          
+[13] &quot;NanumGothic Eco&quot;             &quot;NanumGothicExtraBold&quot;       
+[15] &quot;NanumGothic Light&quot;           &quot;NanumMyeongjo&quot;              
+[17] &quot;NanumMyeongjo YetHangul&quot;     &quot;NanumMyeongjo&quot;              
+[19] &quot;NanumMyeongjo Eco&quot;           &quot;NanumMyeongjoExtraBold&quot;     
+[21] &quot;Nanum Pen Script&quot;            &quot;NanumSquare_ac Bold&quot;        
+[23] &quot;NanumSquare_ac ExtraBold&quot;    &quot;NanumSquare_ac Light&quot;       
+[25] &quot;NanumSquare_ac&quot;              &quot;NanumSquare Bold&quot;           
+[27] &quot;NanumSquare ExtraBold&quot;       &quot;NanumSquare Light&quot;          
+[29] &quot;NanumSquare&quot;                 &quot;NanumSquareRound Bold&quot;      
+[31] &quot;NanumSquareRound ExtraBold&quot;  &quot;NanumSquareRound Light&quot;     
+[33] &quot;NanumSquareRound Regular&quot;   </code></pre>
 </div>
 <div id="font-playground" class="section level1" number="2">
 <h1 number="2"><span class="header-section-number">2</span> <code>font</code> 운동장</h1>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="kw">library</span>(ragg)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">library</span>(systemfonts)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>code &lt;-<span class="st"> &quot;x &lt;- y != z&quot;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>logo &lt;-<span class="st"> &quot;twitter&quot;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>fallback_text &lt;-<span class="st"> &quot;This is English, 이것은 한국어다. この文は日本語です 🚀&quot;</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>emojis &lt;-<span class="st"> &quot;👩🏾💻🔥📊&quot;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">1</span>, <span class="dt">label =</span> code), </span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;Fira Code&quot;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true"></a>  ) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">2</span>, <span class="dt">label =</span> logo), </span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;Font Awesome 5 brands&quot;</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true"></a>  ) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">3</span>, <span class="dt">label =</span> fallback_text), </span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;Font Awesome 5 brands&quot;</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true"></a>  ) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">3</span>, <span class="dt">label =</span> emojis), </span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;Font Awesome 5 brands&quot;</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true"></a>  ) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true"></a><span class="st">  </span><span class="kw">expand_limits</span>(<span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>))</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true"></a>p</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ragg)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(systemfonts)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>code <span class="ot">&lt;-</span> <span class="st">&quot;x &lt;- y != z&quot;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>logo <span class="ot">&lt;-</span> <span class="st">&quot;twitter&quot;</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>fallback_text <span class="ot">&lt;-</span> <span class="st">&quot;This is English, 이것은 한국어다. この文は日本語です 🚀&quot;</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>emojis <span class="ot">&lt;-</span> <span class="st">&quot;👩🏾💻🔥📊&quot;</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">1</span>, <span class="at">label =</span> code), </span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;Fira Code&quot;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">2</span>, <span class="at">label =</span> logo), </span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;Font Awesome 5 brands&quot;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">3</span>, <span class="at">label =</span> fallback_text), </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;Font Awesome 5 brands&quot;</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">3</span>, <span class="at">label =</span> emojis), </span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;Font Awesome 5 brands&quot;</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>))</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
 <p><img src="pdf-fonts_files/figure-html/fonttype-face-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="typeface-vs-font" class="section level1" number="3">
@@ -503,117 +505,168 @@ div.tocify {
 </div>
 </div>
 <p>R마크다운에서 다양한 서체를 글꼴을 달리하여 표현하는 방식은 <code>css</code>를 해당 텍스트에 다음과 같이 적용하는 것이다.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="op">&lt;</span>p style=<span class="st">&quot;font-family: Noto Sans CJK KR; font-size:17pt; font-style:italic, font-weight:200&quot;</span><span class="op">&gt;</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true"></a>다람쥐 헌 쳇바퀴에 타고파</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true"></a><span class="op">&lt;</span><span class="er">/</span>p<span class="op">&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span>p style<span class="ot">=</span><span class="st">&quot;font-family: Noto Sans CJK KR; font-size:17pt; font-style:italic, font-weight:200&quot;</span><span class="sc">&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>다람쥐 헌 쳇바퀴에 타고파</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&lt;</span><span class="er">/</span>p<span class="sc">&gt;</span></span></code></pre></div>
 </div>
 <div id="typeface-vs-font-ggplot" class="section level2" number="3.2">
 <h2 number="3.2"><span class="header-section-number">3.2</span> 그래프 - <code>ggplot</code></h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>code &lt;-<span class="st"> &quot;x &lt;- y != z&quot;</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>logo &lt;-<span class="st"> &quot;twitter&quot;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>fallback_text &lt;-<span class="st"> &quot;This is English, 이것은 한국어다. この文は日本語です 🚀&quot;</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>emojis &lt;-<span class="st"> &quot;👩🏾💻🔥📊&quot;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>korean_text &lt;-<span class="st"> &quot;다람쥐 헌 쳇바퀴에 타고파&quot;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>english_text &lt;-<span class="st"> &quot;The quick brown fox jumps over the lazy dog&quot;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">1</span>, <span class="dt">label =</span> code), </span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;Fira Code&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">2</span>, <span class="dt">label =</span> logo), </span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">3</span>, <span class="dt">label =</span> fallback_text), </span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">4</span>, <span class="dt">label =</span> emojis), </span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">5</span>, <span class="dt">label =</span> korean_text), </span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;NanumGothic&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">6</span>, <span class="dt">label =</span> english_text), </span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true"></a><span class="st">  </span><span class="kw">expand_limits</span>(<span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>)) <span class="op">+</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme_void</span>(<span class="dt">base_family =</span> <span class="st">&#39;Open Sans&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>code <span class="ot">&lt;-</span> <span class="st">&quot;x &lt;- y != z&quot;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>logo <span class="ot">&lt;-</span> <span class="st">&quot;twitter&quot;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>fallback_text <span class="ot">&lt;-</span> <span class="st">&quot;This is English, 이것은 한국어다. この文は日本語です 🚀&quot;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>emojis <span class="ot">&lt;-</span> <span class="st">&quot;👩🏾💻🔥📊&quot;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>korean_text <span class="ot">&lt;-</span> <span class="st">&quot;다람쥐 헌 쳇바퀴에 타고파&quot;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>english_text <span class="ot">&lt;-</span> <span class="st">&quot;The quick brown fox jumps over the lazy dog&quot;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">1</span>, <span class="at">label =</span> code), </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;Fira Code&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">2</span>, <span class="at">label =</span> logo), </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">3</span>, <span class="at">label =</span> fallback_text), </span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">4</span>, <span class="at">label =</span> emojis), </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">5</span>, <span class="at">label =</span> korean_text), </span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;NanumGothic&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">6</span>, <span class="at">label =</span> english_text), </span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>(<span class="at">base_family =</span> <span class="st">&#39;Open Sans&#39;</span>)</span></code></pre></div>
 <p><img src="pdf-fonts_files/figure-html/test-fonts-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>  <span class="co"># theme(text = element_text(family = &#39;Open Sans&#39;))</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="fl">-0.1</span>, <span class="dt">y =</span> <span class="dv">5</span>, <span class="dt">label =</span> korean_text), </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;NanumGothic&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">2</span>, <span class="dt">label =</span> logo), </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">3</span>, <span class="dt">label =</span> fallback_text), </span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">4</span>, <span class="dt">label =</span> emojis), </span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">5</span>, <span class="dt">label =</span> korean_text), </span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;NanumGothic&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">6</span>, <span class="dt">label =</span> english_text), </span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;NanumGothic&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true"></a><span class="st">  </span><span class="kw">expand_limits</span>(<span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># theme(text = element_text(family = &#39;Open Sans&#39;))</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">y =</span> <span class="dv">5</span>, <span class="at">label =</span> korean_text), </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;NanumGothic&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">2</span>, <span class="at">label =</span> logo), </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">3</span>, <span class="at">label =</span> fallback_text), </span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">4</span>, <span class="at">label =</span> emojis), </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">5</span>, <span class="at">label =</span> korean_text), </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;NanumGothic&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">6</span>, <span class="at">label =</span> english_text), </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;NanumGothic&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>)) </span></code></pre></div>
 <p><img src="pdf-fonts_files/figure-html/typeface-font-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="check-fonts" class="section level2" number="3.3">
 <h2 number="3.3"><span class="header-section-number">3.3</span> 설치된 글꼴 확인</h2>
 <p><a href="https://github.com/r-lib/systemfonts"><code>systemfonts</code></a> 팩키지를 활용하여 로컬 컴퓨터에서 설치된 글꼴을 확인할 수 있다.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="kw">library</span>(systemfonts)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a><span class="kw">match_font</span>(<span class="st">&#39;NanumGothic&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(systemfonts)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">match_font</span>(<span class="st">&#39;NanumGothic&#39;</span>)</span></code></pre></div>
 <pre><code>$path
-[1] &quot;C:\\WINDOWS\\Fonts\\NanumGothic.ttf&quot;
+[1] &quot;/System/Library/AssetsV2/com_apple_MobileAsset_Font6/ee9e9584cd1a5f676e03a9efcc80783bc7e12e2c.asset/AssetData/NanumGothic.ttc&quot;
 
 $index
 [1] 0
 
 $features
 NULL</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">system_fonts</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(family, <span class="st">&quot;Noto&quot;</span>))</span></code></pre></div>
-<pre><code># A tibble: 9 x 9
-  path              index name      family   style weight width italic monospace
-  &lt;chr&gt;             &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;    &lt;chr&gt; &lt;ord&gt;  &lt;ord&gt; &lt;lgl&gt;  &lt;lgl&gt;    
-1 &quot;C:\\Users\\stat~     0 NotoSans~ Noto Sa~ Regu~ normal norm~ FALSE  FALSE    
-2 &quot;C:\\Users\\stat~     0 NotoSans~ Noto Sa~ Black heavy  norm~ FALSE  FALSE    
-3 &quot;C:\\Users\\stat~     0 NotoSans~ Noto Sa~ Bold  bold   norm~ FALSE  FALSE    
-4 &quot;C:\\Users\\stat~     0 NotoSans~ Noto Sa~ Demi~ &lt;NA&gt;   norm~ FALSE  FALSE    
-5 &quot;C:\\Users\\stat~     0 NotoSans~ Noto Sa~ Light light  norm~ FALSE  FALSE    
-6 &quot;C:\\Users\\stat~     0 NotoSans~ Noto Sa~ Medi~ medium norm~ FALSE  FALSE    
-7 &quot;C:\\Users\\stat~     0 NotoSans~ Noto Sa~ Regu~ normal norm~ FALSE  FALSE    
-8 &quot;C:\\Users\\stat~     0 NotoSans~ Noto Sa~ Thin  &lt;NA&gt;   norm~ FALSE  FALSE    
-9 &quot;C:\\Users\\stat~     0 NotoSans~ Noto Sa~ Bold  bold   norm~ FALSE  FALSE    </code></pre>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">system_fonts</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(family, <span class="st">&quot;Noto&quot;</span>))</span></code></pre></div>
+<pre><code># A tibble: 41 x 9
+   path            index name      family    style weight width italic monospace
+   &lt;chr&gt;           &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt; &lt;ord&gt;  &lt;ord&gt; &lt;lgl&gt;  &lt;lgl&gt;    
+ 1 /Users/kwangch…     0 NotoSans… Noto San… Regu… normal norm… FALSE  TRUE     
+ 2 /System/Librar…     2 NotoSans… Noto San… Extr… ultra… norm… FALSE  FALSE    
+ 3 /System/Librar…     0 NotoSans… Noto San… Regu… normal norm… FALSE  FALSE    
+ 4 /System/Librar…     1 NotoSans… Noto San… Bold  bold   norm… FALSE  FALSE    
+ 5 /System/Librar…     0 NotoSans… Noto San… Black heavy  norm… FALSE  FALSE    
+ 6 /System/Librar…     6 NotoSans… Noto San… Regu… normal norm… FALSE  FALSE    
+ 7 /Users/kwangch…     0 NotoSans… Noto San… Bold  bold   norm… FALSE  FALSE    
+ 8 /Users/kwangch…     0 NotoSans… Noto San… Regu… normal norm… FALSE  FALSE    
+ 9 /Users/kwangch…     0 NotoSans… Noto San… Medi… medium norm… FALSE  FALSE    
+10 /System/Librar…     8 NotoSans… Noto San… Thin  ultra… norm… FALSE  FALSE    
+# … with 31 more rows</code></pre>
 <p>“다람쥐 헌 쳇바퀴에 타고파” 문장을 글꼴과 굵기를 달리하여 <code>ggplot</code>에 시각화해보자.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">library</span>(extrafont)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a><span class="co"># extrafont::font_import(pattern = &quot;NanumBarunGothicBold&quot;,  prompt = FALSE)</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span class="co"># extrafont::font_import(pattern = &quot;NanumBarunGothicLight&quot;, prompt = FALSE)</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a><span class="kw">loadfonts</span>()</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true"></a></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true"></a><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="fl">-0.1</span>, <span class="dt">y =</span> <span class="dv">5</span>, <span class="dt">label =</span> korean_text),</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;Noto Sans CJK KR&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;plain&quot;</span>, <span class="dt">size =</span> <span class="dv">7</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="fl">-0.1</span>, <span class="dt">y =</span> <span class="dv">4</span>, <span class="dt">label =</span> korean_text),</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;Noto Sans CJK KR&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span>, <span class="dt">size =</span> <span class="dv">7</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="fl">-0.1</span>, <span class="dt">y =</span> <span class="dv">3</span>, <span class="dt">label =</span> korean_text),</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;NanumGothic&quot;</span>, <span class="dt">fontface =</span> <span class="fl">1.5</span>, <span class="dt">size =</span> <span class="dv">7</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="fl">-0.1</span>, <span class="dt">y =</span> <span class="dv">2</span>, <span class="dt">label =</span> korean_text),</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;NanumGothic&quot;</span>, <span class="dt">fontface =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="dv">7</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> korean_text) <span class="op">+</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true"></a><span class="st">  </span><span class="kw">expand_limits</span>(<span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">5</span>))  <span class="op">+</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true"></a><span class="st">  </span><span class="co"># theme(text = element_text(face=&quot;bold&quot;)) +</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme_gray</span>(<span class="dt">base_family =</span> <span class="st">&quot;Noto Sans CJK KR&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(extrafont)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># extrafont::font_import(pattern = &quot;NanumBarunGothicBold&quot;,  prompt = FALSE)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># extrafont::font_import(pattern = &quot;NanumBarunGothicLight&quot;, prompt = FALSE)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">loadfonts</span>()</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">y =</span> <span class="dv">5</span>, <span class="at">label =</span> korean_text),</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;Noto Sans CJK KR&quot;</span>, <span class="at">fontface =</span> <span class="st">&quot;plain&quot;</span>, <span class="at">size =</span> <span class="dv">7</span>) <span class="sc">+</span> </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">y =</span> <span class="dv">4</span>, <span class="at">label =</span> korean_text),</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;Noto Sans CJK KR&quot;</span>, <span class="at">fontface =</span> <span class="st">&quot;bold&quot;</span>, <span class="at">size =</span> <span class="dv">7</span>) <span class="sc">+</span> </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">y =</span> <span class="dv">3</span>, <span class="at">label =</span> korean_text),</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;NanumGothic&quot;</span>, <span class="at">fontface =</span> <span class="fl">1.5</span>, <span class="at">size =</span> <span class="dv">7</span>) <span class="sc">+</span> </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">y =</span> <span class="dv">2</span>, <span class="at">label =</span> korean_text),</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;NanumGothic&quot;</span>, <span class="at">fontface =</span> <span class="dv">2</span>, <span class="at">size =</span> <span class="dv">7</span>) <span class="sc">+</span> </span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> korean_text) <span class="sc">+</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>))  <span class="sc">+</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># theme(text = element_text(face=&quot;bold&quot;)) +</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_gray</span>(<span class="at">base_family =</span> <span class="st">&quot;Noto Sans CJK KR&quot;</span>)</span></code></pre></div>
 <p><img src="pdf-fonts_files/figure-html/how-to-set-default-fonts-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
+</div>
+<div id="print-fonts" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> 글꼴 출력<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></h1>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>fonttable <span class="ot">&lt;-</span> <span class="fu">tribble</span>(<span class="sc">~</span><span class="st">&quot;Short&quot;</span>, <span class="sc">~</span><span class="st">&quot;Canonical&quot;</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;mono&quot;</span>, <span class="st">&quot;Courier&quot;</span>,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;sans&quot;</span>, <span class="st">&quot;Helvetica&quot;</span>,</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;serif&quot;</span>, <span class="st">&quot;Times&quot;</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;&quot;</span>, <span class="st">&quot;AvantGarde&quot;</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;&quot;</span>, <span class="st">&quot;Bookman&quot;</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;&quot;</span>, <span class="st">&quot;Helvetica-Narrow&quot;</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;&quot;</span>, <span class="st">&quot;NewCenturySchoolbook&quot;</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;&quot;</span>, <span class="st">&quot;Palatino&quot;</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;&quot;</span>, <span class="st">&quot;URWGothic&quot;</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;&quot;</span>, <span class="st">&quot;URWBookman&quot;</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;&quot;</span>, <span class="st">&quot;NimbusMon&quot;</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;URWHelvetica&quot;</span>, <span class="st">&quot;NimbusSan&quot;</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;&quot;</span>, <span class="st">&quot;NimbusSanCond&quot;</span>,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;&quot;</span>, <span class="st">&quot;CenturySch&quot;</span>,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;&quot;</span>, <span class="st">&quot;URWPalladio&quot;</span>,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;URWTimes&quot;</span>, <span class="st">&quot;NimbusRom&quot;</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>fonttable <span class="ot">&lt;-</span> fonttable <span class="sc">%&gt;%</span> </span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pos =</span> <span class="fu">row_number</span>())</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>fonttable_tbl <span class="ot">&lt;-</span> fonttable <span class="sc">%&gt;%</span> </span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">c</span>(Short, Canonical), <span class="at">names_to =</span> <span class="st">&quot;NameType&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;Font&quot;</span>)</span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Face table</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>facetable <span class="ot">&lt;-</span> <span class="fu">tibble</span> (<span class="st">&quot;Face&quot;</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="st">&quot;plain&quot;</span>,<span class="st">&quot;bold&quot;</span>,<span class="st">&quot;italic&quot;</span>,<span class="st">&quot;bold.italic&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Face =</span> <span class="fu">factor</span>(Face, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;plain&quot;</span>,<span class="st">&quot;bold&quot;</span>,<span class="st">&quot;italic&quot;</span>,<span class="st">&quot;bold.italic&quot;</span>)))</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>fullfonts <span class="ot">&lt;-</span> <span class="fu">merge</span>(fonttable_tbl, facetable)</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>fullfonts <span class="sc">%&gt;%</span> </span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>NameType, <span class="at">y=</span>pos)) <span class="sc">+</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>Font, <span class="at">family=</span>Font, <span class="at">fontface=</span>Face)) <span class="sc">+</span></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Face, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="pdf-fonts_files/figure-html/print-fonts-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="font-classification" class="section level1" number="5">
+<h1 number="5"><span class="header-section-number">5</span> 글꼴 분류</h1>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="http://www.cookbook-r.com/Graphs/Fonts/">Cookbook for R &gt;&gt; Graphs &gt;&gt; Fonts</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 &nbsp;

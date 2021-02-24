@@ -271,4 +271,48 @@ ggplot() +
   theme_gray(base_family = "Noto Sans CJK KR")
 ```
 
+# 글꼴 출력 [^rewrite-font] {#print-fonts}
+
+[^rewrite-font]: [Cookbook for R >> Graphs >> Fonts](http://www.cookbook-r.com/Graphs/Fonts/)
+
+```{r print-fonts}
+library(tidyverse)
+
+fonttable <- tribble(~"Short", ~"Canonical",
+                         "mono", "Courier",
+                         "sans", "Helvetica",
+                         "serif", "Times",
+                         "", "AvantGarde",
+                         "", "Bookman",
+                         "", "Helvetica-Narrow",
+                         "", "NewCenturySchoolbook",
+                         "", "Palatino",
+                         "", "URWGothic",
+                         "", "URWBookman",
+                         "", "NimbusMon",
+                         "URWHelvetica", "NimbusSan",
+                         "", "NimbusSanCond",
+                         "", "CenturySch",
+                         "", "URWPalladio",
+                         "URWTimes", "NimbusRom")
+
+fonttable <- fonttable %>% 
+  mutate(pos = row_number())
+
+fonttable_tbl <- fonttable %>% 
+  pivot_longer(cols = c(Short, Canonical), names_to = "NameType", values_to = "Font")
+
+# Face table
+facetable <- tibble ("Face" = c("plain","bold","italic","bold.italic")) %>% 
+  mutate(Face = factor(Face, levels = c("plain","bold","italic","bold.italic")))
+
+fullfonts <- merge(fonttable_tbl, facetable)
+
+fullfonts %>% 
+  ggplot(aes(x=NameType, y=pos)) +
+    geom_text(aes(label=Font, family=Font, fontface=Face)) +
+  facet_wrap(~ Face, ncol=2)
+```
+
+# 글꼴 분류 {#font-classification}
 
