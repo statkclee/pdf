@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2021-02-25" />
+<meta name="date" content="2021-02-26" />
 
 <title>PDF를 데이터로 보는 올바른 자세</title>
 
@@ -386,7 +386,7 @@ div.tocify {
 <h3 class="subtitle">구글 노토 글꼴(Noto Fonts)</h3>
 <h4 class="author">이광춘</h4>
 <address class="author_afil">
-<a href="https://www.facebook.com/groups/tidyverse/">Tidyverse Korea</a><br><h4 class="date">2021-02-25</h4>
+<a href="https://www.facebook.com/groups/tidyverse/">Tidyverse Korea</a><br><h4 class="date">2021-02-26</h4>
 
 </div>
 
@@ -421,26 +421,51 @@ div.tocify {
 <h1 number="3"><span class="header-section-number">3</span> R에 폰트 설치<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></h1>
 <p>R에서 운영체제에 설치된 폰트를 설치하는 방법은 다음 세가지 팩키지가 있다.</p>
 <ul>
-<li><code>extrafont</code></li>
-<li><code>showtext</code></li>
+<li><code>extrafont</code>: Winston Cheng이 개발했으며 TTF(.ttf) 포맷을 지원하는데 중점을 둠.</li>
+<li><code>showtext</code>: TTF 외에도 OTF 등 다양한 폰트 포맷을 지원을 확대함.</li>
 <li><code>systemfonts</code></li>
 </ul>
-</div>
-<div id="r-device" class="section level1" number="4">
-<h1 number="4"><span class="header-section-number">4</span> R</h1>
-<p><code>ggplot</code>에 텍스트를 화면에 표현하는 그래픽 장치(Graphics Device, GD)는 5가지가 존재한다.</p>
-<ul>
-<li><code>png()</code></li>
-<li><code>pdf()</code></li>
-<li>스크린 화면 : Windows</li>
-<li>스크린 화면 : Mac</li>
-<li>스크린 화면 : Linux</li>
-</ul>
-<p>5가지 그래픽 장치는 서로 달라 정확한 텍스트를 화면이나 <code>png</code>, <code>pdf</code> 파일이나 이미지에 넣는 것은 쉽지 않지만,</p>
+<div id="install-extrafonts" class="section level2" number="3.1">
+<h2 number="3.1"><span class="header-section-number">3.1</span> <code>extrafont</code> 팩키지</h2>
+<p><code>extrafont</code> 폰트 팩키지 <code>font_import()</code> 함수를 사용해서 운영체제에 있는 글꼴을 R에서 사용할 수 있도록 설치할 수 있다.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(extrafont)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># font_import(pattern=&quot;Noto Sans CJK KR Regular&quot;, prompt = FALSE)</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># font_import(paths = &quot;~/Library/Fonts/NotoSansCJKkr-Regular.otf&quot;, prompt = FALSE)</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># font_import(path = &quot;~/Library/Fonts&quot;, pattern = &quot;.otf&quot;, prompt = FALSE)</span></span></code></pre></div>
+</div>
+<div id="showtext-install" class="section level2" number="3.2">
+<h2 number="3.2"><span class="header-section-number">3.2</span> <code>showtext</code></h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(showtext)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># font_add_google(&quot;Noto Sans KR&quot;, family = &quot;Noto Sans CJK KR&quot;)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">&quot;Noto Sans CJK&quot;</span>, </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">regular =</span> <span class="st">&quot;NotoSansCJKkr-Regular.otf&quot;</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_auto</span>(<span class="at">enable =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>tmp_str <span class="ot">&lt;-</span> sysfonts<span class="sc">::</span><span class="fu">font_paths</span>()</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>tmp_str[<span class="fu">str_detect</span>(tmp_str, <span class="at">pattern =</span> <span class="st">&quot;nanum&quot;</span>)]</span></code></pre></div>
+<pre><code>[1] &quot;/Users/kwangchunlee/Library/Fonts/google-fonts/ofl/nanumbrushscript&quot; 
+[2] &quot;/Users/kwangchunlee/Library/Fonts/google-fonts/ofl/nanumgothic&quot;      
+[3] &quot;/Users/kwangchunlee/Library/Fonts/google-fonts/ofl/nanumgothiccoding&quot;
+[4] &quot;/Users/kwangchunlee/Library/Fonts/google-fonts/ofl/nanummyeongjo&quot;    
+[5] &quot;/Users/kwangchunlee/Library/Fonts/google-fonts/ofl/nanumpenscript&quot;   </code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>korean_text <span class="ot">&lt;-</span> <span class="st">&quot;다람쥐 헌 쳇바퀴에 타고파&quot;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_begin</span>()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">5</span>, <span class="at">label =</span> korean_text), </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;Noto Sans KR&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">6</span>, <span class="at">label =</span> korean_text), </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;NanumGothic&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>)) </span></code></pre></div>
+<p><img src="pdf-noto_files/figure-html/korean-showtext-1.png" width="672" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_begin</span>()</span></code></pre></div>
+</div>
 </div>
 <div class="footnotes">
 <hr />

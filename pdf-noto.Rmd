@@ -78,22 +78,13 @@ rm -rf ~/Library/Fonts/google-fonts/
 
 R에서 운영체제에 설치된 폰트를 설치하는 방법은 다음 세가지 팩키지가 있다. 
 
--   `extrafont`
--   `showtext`
+-   `extrafont`: Winston Cheng이 개발했으며 TTF(.ttf) 포맷을 지원하는데 중점을 둠.
+-   `showtext`: TTF 외에도 OTF 등 다양한 폰트 포맷을 지원을 확대함.
 -   `systemfonts`
 
+## `extrafont` 팩키지 {#install-extrafonts}
 
-# R {#r-device}
-
-`ggplot`에 텍스트를 화면에 표현하는 그래픽 장치(Graphics Device, GD)는 5가지가 존재한다.
-
--   `png()`
--   `pdf()`
--   스크린 화면 : Windows
--   스크린 화면 : Mac
--   스크린 화면 : Linux
-
-5가지 그래픽 장치는 서로 달라 정확한 텍스트를 화면이나 `png`, `pdf` 파일이나 이미지에 넣는 것은 쉽지 않지만, 
+`extrafont` 폰트 팩키지 `font_import()` 함수를 사용해서 운영체제에 있는 글꼴을 R에서 사용할 수 있도록 설치할 수 있다.
 
 ```{r install-noto-fonts-r}
 library(extrafont)
@@ -101,6 +92,39 @@ library(extrafont)
 # font_import(paths = "~/Library/Fonts/NotoSansCJKkr-Regular.otf", prompt = FALSE)
 # font_import(path = "~/Library/Fonts", pattern = ".otf", prompt = FALSE)
 
+```
+
+## `showtext` {#showtext-install}
+
+```{r install-showtext}
+library(tidyverse)
+library(showtext)
+
+# font_add_google("Noto Sans KR", family = "Noto Sans CJK KR")
+sysfonts::font_add(family = "Noto Sans CJK", 
+         regular = "NotoSansCJKkr-Regular.otf")
+showtext_auto(enable = TRUE)
+
+tmp_str <- sysfonts::font_paths()
+
+tmp_str[str_detect(tmp_str, pattern = "nanum")]
+
+```
+
+```{r korean-showtext}
+korean_text <- "다람쥐 헌 쳇바퀴에 타고파"
+
+showtext_begin()
+
+ggplot() + 
+  geom_text(
+    aes(x = 0, y = 5, label = korean_text), 
+    family = "Noto Sans KR") + 
+  geom_text(
+    aes(x = 0, y = 6, label = korean_text), 
+    family = "NanumGothic") + 
+  expand_limits(y = c(0, 5)) 
+showtext_begin()
 
 ```
 
