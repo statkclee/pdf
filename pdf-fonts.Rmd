@@ -41,68 +41,28 @@ knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
 
 </iframe>
 
-# R {#r-device}
+# 글꼴 분류 [^fonts-definition] {#font-classification}
 
-`ggplot`에 텍스트를 화면에 표현하는 그래픽 장치(Graphics Device, GD)는 5가지가 존재한다.
+[^fonts-definition]: [Adobe Korea (August 21, 2017), "글꼴의 기능과 디자인에 적합한 글꼴 선택 방법"](https://blog.adobe.com/ko/publish/2017/08/21/whats-in-a-fonts-can-define-your-design.html#gs.u0he6a)
 
--   `png()`
--   `pdf()`
--   스크린 화면 : Windows
--   스크린 화면 : Mac
--   스크린 화면 : Linux
+- **활자(Type)**는 본래는 글자를 만드는 데 사용된 나무 또는 금속 조각을 일컫는 말이었습니다.
+- **타이포그래피(Typography)**: 인쇄된 텍스트의 스타일과 모양을 가리키는 디자인 용어입니다.
+- **서체(또는 글꼴 모음, Typeface)**: 글자 및 기호가 서로 비슷한 특징을 가지도록 디자인된 문자fh 타임즈(Times), 에어리얼(Arial) 및 미니언(Minion)을 들 수 있습니다.
+- **글꼴(Font)**: 서체의 특정 스타일을 지칭하는데, 예를 들어, 에어리얼 블랙(Arial Black)은 에어리얼 서체 중 한 글꼴이며, 미니언 프로 이탤릭체(Minion Pro Italic)는 미니언 글꼴 모음에 포함되어 있는 글꼴이다.
 
-5가지 그래픽 장치는 서로 달라 정확한 텍스트를 화면이나 `png`, `pdf` 파일이나 이미지에 넣는 것은 쉽지 않지만, 다음 팩키지가 그 역할을 수행하고 있다.
+글꼴(Font)는 다양하지만 크게 다음 5가지로 영문의 경우 분류된다. 글꼴은 기본적으로 **세리프(serif)**와 **산세리프(sans serif)**의 2가지 스타일로 구분되는데 세리프는 글자의 획 끝에 작은 삐침이 있는 글꼴이며 산스(sans)은 라틴어로 없다는 뜻이기 때문에 삐침이 없는 글꼴을 지칭합니다.
 
--   `showtext`
--   `extrafont`
--   `systemfonts`
+- serif
+- sans serif
+- script
+- monospaced
+- display
 
-<p style="font-family: Nanum Pen Script; font-size:17pt; font-style:italic">
+가장 쉽게 분류되는 `monospaced` 글꼴은 코드를 작성하기 위해 등간격을 갖는 글꼴로 `consolas`, `D2 Coding`이 대표적이다. 산세리프(Sans serif)와 세리프(Serif) 글꼴은 본문에 사용하기 적합하지만, 좀더 시선을 끄는 디자인을 위해서는 조금 더 매력적인 **디스플레이(Display)** 혹은 **스크립트(Script)**을 선택하고, 제목(Title)에는 산세리프 글꼴을 사용하는 것이 일반적이다.
 
-나눔고딕 폰트 테스트 중입니다.
+![](fig/font-classification.png)
 
-</p>
-
-```{r}
-library(showtext)
-
-extrafont::fonttable()$FamilyName
-```
-
-# `font` 운동장 {#font-playground}
-
-```{r fonttype-face}
-library(tidyverse)
-library(ragg)
-library(systemfonts)
-
-code <- "x <- y != z"
-logo <- "twitter"
-fallback_text <- "This is English, 이것은 한국어다. この文は日本語です 🚀"
-emojis <- "👩🏾💻🔥📊"
-
-p <- ggplot() + 
-  geom_text(
-    aes(x = 0, y = 1, label = code), 
-    family = "Fira Code"
-  ) + 
-  geom_text(
-    aes(x = 0, y = 2, label = logo), 
-    family = "Font Awesome 5 brands"
-  ) + 
-  geom_text(
-    aes(x = 0, y = 3, label = fallback_text), 
-    family = "Font Awesome 5 brands"
-  ) + 
-  geom_text(
-    aes(x = 0, y = 3, label = emojis), 
-    family = "Font Awesome 5 brands"
-  ) + 
-  expand_limits(y = c(0, 5))
-p
-```
-
-# `typeface` vs `font` {#typeface-vs-font}
+## `typeface` vs `font` {#typeface-vs-font}
 
 `typeface`는 서체로 번역되고 `font`는 글꼴로 번역된다. 하나의 `typeface`에 다수 `font`가 포함될 수 있다. [**팬그램(Pangram)**](https://ko.wikipedia.org/wiki/팬그램)은 '모든 글자'라는 뜻으로 주어진 모든 문자를 적어도 한 번 이상 사용하여 만든 문장을 뜻한다. 팬그램은 로렘 입숨처럼 글꼴 샘플을 보여주거나 장비를 테스트하는 데 사용된다. 영어 팬그램으로 가장 유명한 'The quick brown fox jumps over the lazy dog'는 19세기부터 사용되어 왔다.
 
@@ -173,6 +133,69 @@ R마크다운에서 다양한 서체를 글꼴을 달리하여 표현하는 방�
 </p>
 
 ```
+
+# R {#r-device}
+
+`ggplot`에 텍스트를 화면에 표현하는 그래픽 장치(Graphics Device, GD)는 5가지가 존재한다.
+
+-   `png()`
+-   `pdf()`
+-   스크린 화면 : Windows
+-   스크린 화면 : Mac
+-   스크린 화면 : Linux
+
+5가지 그래픽 장치는 서로 달라 정확한 텍스트를 화면이나 `png`, `pdf` 파일이나 이미지에 넣는 것은 쉽지 않지만, 다음 팩키지가 그 역할을 수행하고 있다.
+
+-   `showtext`
+-   `extrafont`
+-   `systemfonts`
+
+<p style="font-family: Nanum Pen Script; font-size:17pt; font-style:italic">
+
+나눔고딕 폰트 테스트 중입니다.
+
+</p>
+
+```{r}
+library(showtext)
+
+extrafont::fonttable()$FamilyName
+```
+
+# `font` 운동장 {#font-playground}
+
+```{r fonttype-face}
+library(tidyverse)
+library(ragg)
+library(systemfonts)
+
+code <- "x <- y != z"
+logo <- "twitter"
+fallback_text <- "This is English, 이것은 한국어다. この文は日本語です 🚀"
+emojis <- "👩🏾💻🔥📊"
+
+p <- ggplot() + 
+  geom_text(
+    aes(x = 0, y = 1, label = code), 
+    family = "Fira Code"
+  ) + 
+  geom_text(
+    aes(x = 0, y = 2, label = logo), 
+    family = "Font Awesome 5 brands"
+  ) + 
+  geom_text(
+    aes(x = 0, y = 3, label = fallback_text), 
+    family = "Font Awesome 5 brands"
+  ) + 
+  geom_text(
+    aes(x = 0, y = 3, label = emojis), 
+    family = "Font Awesome 5 brands"
+  ) + 
+  expand_limits(y = c(0, 5))
+p
+```
+
+
 
 ## 그래프 - `ggplot` {#typeface-vs-font-ggplot}
 
