@@ -33,8 +33,8 @@ title: "PDF를 데이터로 보는 올바른 자세"
     - [PPT 장표 - OCR `tesseract`](ingest-ocr-ppt.html)
 - [워드 파일에서 표(table) 추출](word-table-extraction.html)
 - [디지털 타이포그래피(Digital Typography)](pdf-typography.html)
-    - [**글꼴(font)**](pdf-fonts.html)
     - [구글 노토(Noto)](pdf-noto.html)
+    - [**글꼴(font)**](pdf-fonts.html)
 
-### [xwMOOC 오픈 교재](https://statkclee.github.io/xwMOOC/)
+
 

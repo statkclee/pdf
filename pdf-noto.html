@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2021-02-26" />
+<meta name="date" content="2021-02-27" />
 
 <title>PDF를 데이터로 보는 올바른 자세</title>
 
@@ -42,7 +42,6 @@
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
@@ -386,91 +385,163 @@ div.tocify {
 <h3 class="subtitle">구글 노토 글꼴(Noto Fonts)</h3>
 <h4 class="author">이광춘</h4>
 <address class="author_afil">
-<a href="https://www.facebook.com/groups/tidyverse/">Tidyverse Korea</a><br><h4 class="date">2021-02-26</h4>
+<a href="https://www.facebook.com/groups/tidyverse/">Tidyverse Korea</a><br><h4 class="date">2021-02-27</h4>
 
 </div>
 
 
-<div id="google-noto-fonts" class="section level1" number="1">
-<h1 number="1"><span class="header-section-number">1</span> 구글 노토 폰트</h1>
+<div id="check-installed-fonts" class="section level1" number="1">
+<h1 number="1"><span class="header-section-number">1</span> 설치된 글꼴 확인</h1>
+<p><code>sysfonts</code> 팩키지를 활용하여 폰트가 설치된 디렉토리와 파일을 확인할 수 있다. <code>font_paths()</code>를 통해 폰트가 설치된 디렉토리 확인이 가능하고, <code>font_files()</code> 함수를 통해 구체적으로 설치된 폰트를 확인한다.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>sysfonts<span class="op">::</span><span class="kw">font_paths</span>()</span></code></pre></div>
+<pre><code>[1] &quot;C:\\Windows\\Fonts&quot;</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>sysfonts<span class="op">::</span><span class="kw">font_files</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(family, <span class="dt">pattern =</span> <span class="st">&quot;Nanum&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>version, <span class="op">-</span>ps_name)</span></code></pre></div>
+<pre><code># A tibble: 25 x 4
+   path            file                        family                  face     
+   &lt;chr&gt;           &lt;chr&gt;                       &lt;chr&gt;                   &lt;chr&gt;    
+ 1 C:/Windows/Fon~ NanumBarunGothic.ttf        NanumBarunGothic        Regular  
+ 2 C:/Windows/Fon~ NanumBarunGothicBold.ttf    NanumBarunGothic        Bold     
+ 3 C:/Windows/Fon~ NanumBarunGothicLight.ttf   NanumBarunGothic Light  Light    
+ 4 C:/Windows/Fon~ NanumBarunGothicUltraLight~ NanumBarunGothic Ultra~ UltraLig~
+ 5 C:/Windows/Fon~ NanumBarunpenB.ttf          NanumBarunpen Bold      Bold     
+ 6 C:/Windows/Fon~ NanumBarunpenR.ttf          NanumBarunpen           Regular  
+ 7 C:/Windows/Fon~ NanumBrush.ttf              Nanum Brush Script      Regular  
+ 8 C:/Windows/Fon~ NanumGothic.ttf             NanumGothic             Regular  
+ 9 C:/Windows/Fon~ NanumGothicBold.ttf         NanumGothic             Bold     
+10 C:/Windows/Fon~ NanumGothicCoding-Bold.ttf  NanumGothicCoding       Bold     
+# ... with 15 more rows</code></pre>
+<div id="installed-fonts-helloworld" class="section level2" number="1.1">
+<h2 number="1.1"><span class="header-section-number">1.1</span> 폰트 추가</h2>
+<p><code>showtext</code> 팩키지 <code>font_add()</code> 함수를 통해 서체를 추가하고 <code>font_families()</code> 함수를 통해 확인한다.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a><span class="kw">library</span>(showtext)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a><span class="kw">font_add</span>(<span class="dt">family  =</span> <span class="st">&quot;NanumBarunpen&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>         <span class="dt">bold    =</span> <span class="st">&quot;NanumBarunpenB.ttf&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>         <span class="dt">regular =</span> <span class="st">&quot;NanumBarunpenR.ttf&quot;</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a><span class="kw">font_families</span>()</span></code></pre></div>
+<pre><code>[1] &quot;sans&quot;          &quot;serif&quot;         &quot;mono&quot;          &quot;wqy-microhei&quot; 
+[5] &quot;NanumBarunpen&quot;</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a><span class="kw">showtext_auto</span>() </span></code></pre></div>
+<p>R 환경에서 나눔바른펜 폰트를 사용할 준비가 되었기 때문에 다음과 같이 <code>ggplot</code>에서 사용할 준비를 한다. <code>faimly = NanumBarunpen</code>으로 지정하고 <code>fontface =</code>를 달리하여 시각화를 한다.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="co"># library(extrafont) </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true"></a><span class="co"># loadfonts(device = &quot;win&quot;)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true"></a>korean_text &lt;-<span class="st"> &quot;다람쥐 헌 쳇바퀴에 타고파&quot;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">1</span>, <span class="dt">label =</span> korean_text), </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;NanumBarunpen&quot;</span>, <span class="dt">size =</span> <span class="dv">7</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">2</span>, <span class="dt">label =</span> korean_text), </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;NanumBarunpen&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span>, <span class="dt">size =</span> <span class="dv">9</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">expand_limits</span>(<span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">3</span>)) <span class="op">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme_void</span>()</span></code></pre></div>
+<p><img src="pdf-noto_files/figure-html/font-showtext-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="google-noto-fonts-install" class="section level1" number="2">
-<h1 number="2"><span class="header-section-number">2</span> OS에 폰트 설치 [^install-fonts]</h1>
-<p>[]: <a href="https://www.junian.net/tech/macos-google-fonts/">Junian (Apr 2, 2020), “How to Install All Google Fonts on macOS - A simple guide to install the entire Google Fonts library on macOS,” Junian.net</a></p>
+</div>
+<div id="google-noto-fonts" class="section level1" number="2">
+<h1 number="2"><span class="header-section-number">2</span> 구글 노토 폰트</h1>
+</div>
+<div id="google-noto-fonts-install" class="section level1" number="3">
+<h1 number="3"><span class="header-section-number">3</span> OS에 폰트 설치<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></h1>
 <p>Noto 폰트는 구글이 <code>tofu</code> 문제를 해결하고자 제시한 무료오픈 글꼴이다. 대표적으로 노토 산스와 노토 세리프 한글 글꼴을 제공하고 있어 이를 설치하여 활용하는 방법을 찾아보자.</p>
 <ul>
 <li><a href="https://fonts.google.com/specimen/Noto+Sans+KR">Noto Sans KR</a></li>
 <li><a href="https://fonts.google.com/specimen/Noto+Serif+KR">Noto Serif KR</a></li>
 </ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>먼저 <a href="https://fonts.google.com/">Google Fonts</a> 웹사이트에서 폰트를 다운로드 받아 로컬 컴퓨터 운영체제에 설치한다. GitHub <a href="https://github.com/google/fonts">Google Fonts</a> 저장소를 통채로 콜론하여 사용자 맥 폰트 디렉토리 <code>~/Library/Fonts/</code>에 저장한다. 전체 크기가 1.6 GB 이상되기 때문에 용량을 다소 차지한다. 업데이트된 폰트는 <code>git pull</code> 명령어를 통해 갱신한다.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모든 구글 폰트 설치</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Library/Fonts/</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/google/fonts.git google-fonts</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 구글 폰트 업데이트</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> ~/Library/Fonts/google-fonts/</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">git</span> pull</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 삭제</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span> <span class="at">-rf</span> ~/Library/Fonts/google-fonts/</span></code></pre></div>
-<p>맥에서 “Font Book 앱,” “서체 관리자 앱”을 실행시켜 노토 폰트가 설치된 것을 확인한다.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a><span class="co"># 모든 구글 폰트 설치</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a><span class="bu">cd</span> ~/Library/Fonts/</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a><span class="fu">git</span> clone https://github.com/google/fonts.git google-fonts</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a><span class="co"># 구글 폰트 업데이트</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a><span class="bu">cd</span> ~/Library/Fonts/google-fonts/</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a><span class="fu">git</span> pull</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a><span class="co"># 삭제</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true"></a><span class="fu">rm</span> -rf ~/Library/Fonts/google-fonts/</span></code></pre></div>
+<p>맥에서 “Font Book 앱”, “서체 관리자 앱”을 실행시켜 노토 폰트가 설치된 것을 확인한다.</p>
 <p><img src="fig/mac-font-book.png" /></p>
+<div id="windows-noto-fonts" class="section level2" number="3.1">
+<h2 number="3.1"><span class="header-section-number">3.1</span> 윈도우</h2>
+<p>윈도우에 노토 폰트를 설치하는 방법은 다운로드 받은 파일을 복사하여 <code>c:\Windows\Fonts</code> 디렉토리에 관리자 권한으로 복사해 넣는 것이다.</p>
 </div>
-<div id="install-fonts" class="section level1" number="3">
-<h1 number="3"><span class="header-section-number">3</span> R에 폰트 설치<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></h1>
+</div>
+<div id="install-fonts" class="section level1" number="4">
+<h1 number="4"><span class="header-section-number">4</span> R에 폰트 설치<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></h1>
 <p>R에서 운영체제에 설치된 폰트를 설치하는 방법은 다음 세가지 팩키지가 있다.</p>
 <ul>
 <li><code>extrafont</code>: Winston Cheng이 개발했으며 TTF(.ttf) 포맷을 지원하는데 중점을 둠.</li>
 <li><code>showtext</code>: TTF 외에도 OTF 등 다양한 폰트 포맷을 지원을 확대함.</li>
-<li><code>systemfonts</code></li>
+<li><code>systemfonts</code>: <code>tidyglyphs</code> 생태계 구축 중<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></li>
 </ul>
-<div id="install-extrafonts" class="section level2" number="3.1">
-<h2 number="3.1"><span class="header-section-number">3.1</span> <code>extrafont</code> 팩키지</h2>
-<p><code>extrafont</code> 폰트 팩키지 <code>font_import()</code> 함수를 사용해서 운영체제에 있는 글꼴을 R에서 사용할 수 있도록 설치할 수 있다.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(extrafont)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># font_import(pattern=&quot;Noto Sans CJK KR Regular&quot;, prompt = FALSE)</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># font_import(paths = &quot;~/Library/Fonts/NotoSansCJKkr-Regular.otf&quot;, prompt = FALSE)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># font_import(path = &quot;~/Library/Fonts&quot;, pattern = &quot;.otf&quot;, prompt = FALSE)</span></span></code></pre></div>
+<div id="install-extrafonts" class="section level2" number="4.1">
+<h2 number="4.1"><span class="header-section-number">4.1</span> <code>extrafont</code> 팩키지</h2>
+<p><code>extrafont</code> 폰트 팩키지 <code>font_import()</code> 함수를 사용해서 운영체제에 있는 글꼴을 R에서 사용할 수 있도록 설치할 수 있다. <code>extrafont</code> 팩키지는 Winston Cheng에 의해 개발되어 <code>TTF</code>를 지원하기 위해 사용된 것이라 <code>.otf</code>를 받지 않는다. 따라서 <code>.otf</code> → <code>.ttf</code>로 변환시킨 후에 <code>font_import()</code> 함수로 설치해야 된다.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="kw">library</span>(extrafont)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true"></a><span class="co"># font_import(pattern=&quot;Noto Sans CJK KR Regular&quot;, prompt = FALSE)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true"></a><span class="co"># font_import(paths = &quot;~/Library/Fonts/NotoSansCJKkr-Regular.otf&quot;, prompt = FALSE)</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true"></a><span class="co"># font_import(path = &quot;~/Library/Fonts&quot;, pattern = &quot;.otf&quot;, prompt = FALSE)</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true"></a><span class="co"># font_import(paths = &quot;Noto Sans CJK KR&quot;, prompt = FALSE)</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true"></a><span class="co"># font_import(paths = &quot;Noto Sans Mono CJK KR&quot;, prompt = FALSE)</span></span></code></pre></div>
 </div>
-<div id="showtext-install" class="section level2" number="3.2">
-<h2 number="3.2"><span class="header-section-number">3.2</span> <code>showtext</code></h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(showtext)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># font_add_google(&quot;Noto Sans KR&quot;, family = &quot;Noto Sans CJK KR&quot;)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>sysfonts<span class="sc">::</span><span class="fu">font_add</span>(<span class="at">family =</span> <span class="st">&quot;Noto Sans CJK&quot;</span>, </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">regular =</span> <span class="st">&quot;NotoSansCJKkr-Regular.otf&quot;</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_auto</span>(<span class="at">enable =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>tmp_str <span class="ot">&lt;-</span> sysfonts<span class="sc">::</span><span class="fu">font_paths</span>()</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>tmp_str[<span class="fu">str_detect</span>(tmp_str, <span class="at">pattern =</span> <span class="st">&quot;nanum&quot;</span>)]</span></code></pre></div>
-<pre><code>[1] &quot;/Users/kwangchunlee/Library/Fonts/google-fonts/ofl/nanumbrushscript&quot; 
-[2] &quot;/Users/kwangchunlee/Library/Fonts/google-fonts/ofl/nanumgothic&quot;      
-[3] &quot;/Users/kwangchunlee/Library/Fonts/google-fonts/ofl/nanumgothiccoding&quot;
-[4] &quot;/Users/kwangchunlee/Library/Fonts/google-fonts/ofl/nanummyeongjo&quot;    
-[5] &quot;/Users/kwangchunlee/Library/Fonts/google-fonts/ofl/nanumpenscript&quot;   </code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>korean_text <span class="ot">&lt;-</span> <span class="st">&quot;다람쥐 헌 쳇바퀴에 타고파&quot;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_begin</span>()</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">5</span>, <span class="at">label =</span> korean_text), </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;Noto Sans KR&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> <span class="dv">0</span>, <span class="at">y =</span> <span class="dv">6</span>, <span class="at">label =</span> korean_text), </span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;NanumGothic&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">y =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>)) </span></code></pre></div>
-<p><img src="pdf-noto_files/figure-html/korean-showtext-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">showtext_begin</span>()</span></code></pre></div>
+<div id="showtext-install" class="section level2" number="4.2">
+<h2 number="4.2"><span class="header-section-number">4.2</span> <code>showtext</code></h2>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a><span class="kw">library</span>(showtext)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a><span class="co"># font_add_google(&quot;Noto Sans KR&quot;, family = &quot;Noto Sans CJK KR&quot;)</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>sysfonts<span class="op">::</span><span class="kw">font_add</span>(<span class="dt">family  =</span> <span class="st">&quot;Noto Sans CJK KR&quot;</span>, </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>                   <span class="dt">regular =</span> <span class="st">&quot;NotoSansKR-Regular.otf&quot;</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>                   <span class="dt">bold    =</span> <span class="st">&quot;NotoSansKR-Bold.otf&quot;</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="ot">NULL</span>) <span class="op">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">1</span>, <span class="dt">label =</span> korean_text), </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;NanumBarunpen&quot;</span>, <span class="dt">size =</span> <span class="dv">5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">2</span>, <span class="dt">label =</span> korean_text), </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;NanumBarunpen&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span>, <span class="dt">size =</span> <span class="dv">6</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">3</span>, <span class="dt">label =</span> korean_text), </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;Noto Sans CJK KR&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;plain&quot;</span>, <span class="dt">size =</span> <span class="dv">7</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true"></a><span class="st">  </span><span class="kw">geom_text</span>(</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true"></a>    <span class="kw">aes</span>(<span class="dt">x =</span> <span class="dv">0</span>, <span class="dt">y =</span> <span class="dv">4</span>, <span class="dt">label =</span> korean_text), </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true"></a>    <span class="dt">family =</span> <span class="st">&quot;Noto Sans CJK KR&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;bold&quot;</span>, <span class="dt">size =</span> <span class="dv">8</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true"></a><span class="st">  </span><span class="kw">expand_limits</span>(<span class="dt">y =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>)) <span class="op">+</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true"></a><span class="st">  </span><span class="kw">theme_void</span>()</span></code></pre></div>
+</div>
+<div id="showtext-install-systemfonts" class="section level2" number="4.3">
+<h2 number="4.3"><span class="header-section-number">4.3</span> <code>systemfonts</code> 팩키지</h2>
+<p><code>systemfonts</code> 팩키지 <code>register_font()</code> 함수를 사용해서 폰트를 등록할 수 있다.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="kw">library</span>(systemfonts)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true"></a><span class="co"># systemfonts::register_font(&quot;Noto Sans CJK KR&quot;)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true"></a>systemfonts<span class="op">::</span><span class="kw">match_font</span>(<span class="st">&quot;Noto Sans CJK KR&quot;</span>)</span></code></pre></div>
+<pre><code>$path
+[1] &quot;C:\\Users\\statkclee\\AppData\\Local\\Microsoft\\Windows\\Fonts\\NotoSansCJKkr-Regular.otf&quot;
+
+$index
+[1] 0
+
+$features
+NULL</code></pre>
 </div>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
-<li id="fn1"><p><a href="https://stackoverflow.com/questions/52251290/add-font-to-r-that-is-not-in-extrafonts-library">stackoverflow, “Add font to R that is not in extrafonts library”</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn1"><p><a href="https://www.junian.net/tech/macos-google-fonts/">Junian (Apr 2, 2020), “How to Install All Google Fonts on macOS - A simple guide to install the entire Google Fonts library on macOS”, Junian.net</a><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://stackoverflow.com/questions/52251290/add-font-to-r-that-is-not-in-extrafonts-library">stackoverflow, “Add font to R that is not in extrafonts library”</a><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://www.tidyverse.org/blog/2021/02/modern-text-features/">Thomas Lin Pedersen (2021/02/06), “Modern Text Features in R”, Tidyverse Blog</a><a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
