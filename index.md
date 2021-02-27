@@ -35,6 +35,9 @@ title: "PDF를 데이터로 보는 올바른 자세"
 - [디지털 타이포그래피(Digital Typography)](pdf-typography.html)
     - [구글 노토(Noto)](pdf-noto.html)
     - [**글꼴(font)**](pdf-fonts.html)
-
+    - [R 마크다운 폰트](pdf-rmd-fonts.html)
+        - [문서 `style`](pdf-rmd-style.html)
+    - [R 마크다운 폰트 CSS](pdf-rmd-css-fonts.html)
+        - [문서 `css`](pdf-rmd-css.html)
 
 
