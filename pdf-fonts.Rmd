@@ -41,22 +41,22 @@ knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
 
 </iframe>
 
-# 글꼴 분류 [^fonts-definition] {#font-classification}
+# 글꼴 분류 [^1] {#font-classification}
 
-[^fonts-definition]: [Adobe Korea (August 21, 2017), "글꼴의 기능과 디자인에 적합한 글꼴 선택 방법"](https://blog.adobe.com/ko/publish/2017/08/21/whats-in-a-fonts-can-define-your-design.html#gs.u0he6a)
+[^1]: [Adobe Korea (August 21, 2017), "글꼴의 기능과 디자인에 적합한 글꼴 선택 방법"](https://blog.adobe.com/ko/publish/2017/08/21/whats-in-a-fonts-can-define-your-design.html#gs.u0he6a)
 
-- **활자(Type)**는 본래는 글자를 만드는 데 사용된 나무 또는 금속 조각을 일컫는 말이었습니다.
-- **타이포그래피(Typography)**: 인쇄된 텍스트의 스타일과 모양을 가리키는 디자인 용어입니다.
-- **서체(또는 글꼴 모음, Typeface)**: 글자 및 기호가 서로 비슷한 특징을 가지도록 디자인된 문자fh 타임즈(Times), 에어리얼(Arial) 및 미니언(Minion)을 들 수 있습니다.
-- **글꼴(Font)**: 서체의 특정 스타일을 지칭하는데, 예를 들어, 에어리얼 블랙(Arial Black)은 에어리얼 서체 중 한 글꼴이며, 미니언 프로 이탤릭체(Minion Pro Italic)는 미니언 글꼴 모음에 포함되어 있는 글꼴이다.
+-   **활자(Type)**는 본래는 글자를 만드는 데 사용된 나무 또는 금속 조각을 일컫는 말이었습니다.
+-   **타이포그래피(Typography)**: 인쇄된 텍스트의 스타일과 모양을 가리키는 디자인 용어입니다.
+-   **서체(또는 글꼴 모음, Typeface)**: 글자 및 기호가 서로 비슷한 특징을 가지도록 디자인된 문자fh 타임즈(Times), 에어리얼(Arial) 및 미니언(Minion)을 들 수 있습니다.
+-   **글꼴(Font)**: 서체의 특정 스타일을 지칭하는데, 예를 들어, 에어리얼 블랙(Arial Black)은 에어리얼 서체 중 한 글꼴이며, 미니언 프로 이탤릭체(Minion Pro Italic)는 미니언 글꼴 모음에 포함되어 있는 글꼴이다.
 
 글꼴(Font)는 다양하지만 크게 다음 5가지로 영문의 경우 분류된다. 글꼴은 기본적으로 **세리프(serif)**와 **산세리프(sans serif)**의 2가지 스타일로 구분되는데 세리프는 글자의 획 끝에 작은 삐침이 있는 글꼴이며 산스(sans)은 라틴어로 없다는 뜻이기 때문에 삐침이 없는 글꼴을 지칭합니다.
 
-- serif
-- sans serif
-- script
-- monospaced
-- display
+-   serif
+-   sans serif
+-   script
+-   monospaced
+-   display
 
 가장 쉽게 분류되는 `monospaced` 글꼴은 코드를 작성하기 위해 등간격을 갖는 글꼴로 `consolas`, `D2 Coding`이 대표적이다. 산세리프(Sans serif)와 세리프(Serif) 글꼴은 본문에 사용하기 적합하지만, 좀더 시선을 끄는 디자인을 위해서는 조금 더 매력적인 **디스플레이(Display)** 혹은 **스크립트(Script)**을 선택하고, 제목(Title)에는 산세리프 글꼴을 사용하는 것이 일반적이다.
 
@@ -134,169 +134,11 @@ R마크다운에서 다양한 서체를 글꼴을 달리하여 표현하는 방�
 
 ```
 
-# R {#r-device}
+# 글꼴 출력 [^2] {#print-fonts}
 
-`ggplot`에 텍스트를 화면에 표현하는 그래픽 장치(Graphics Device, GD)는 5가지가 존재한다.
+[^2]: [Cookbook for R \>\> Graphs \>\> Fonts](http://www.cookbook-r.com/Graphs/Fonts/)
 
--   `png()`
--   `pdf()`
--   스크린 화면 : Windows
--   스크린 화면 : Mac
--   스크린 화면 : Linux
-
-5가지 그래픽 장치는 서로 달라 정확한 텍스트를 화면이나 `png`, `pdf` 파일이나 이미지에 넣는 것은 쉽지 않지만, 다음 팩키지가 그 역할을 수행하고 있다.
-
--   `showtext`
--   `extrafont`
--   `systemfonts`
-
-<p style="font-family: Nanum Pen Script; font-size:17pt; font-style:italic">
-
-나눔고딕 폰트 테스트 중입니다.
-
-</p>
-
-```{r}
-library(showtext)
-
-extrafont::fonttable()$FamilyName
-```
-
-# `font` 운동장 {#font-playground}
-
-```{r fonttype-face}
-library(tidyverse)
-library(ragg)
-library(systemfonts)
-
-code <- "x <- y != z"
-logo <- "twitter"
-fallback_text <- "This is English, 이것은 한국어다. この文は日本語です 🚀"
-emojis <- "👩🏾💻🔥📊"
-
-p <- ggplot() + 
-  geom_text(
-    aes(x = 0, y = 1, label = code), 
-    family = "Fira Code"
-  ) + 
-  geom_text(
-    aes(x = 0, y = 2, label = logo), 
-    family = "Font Awesome 5 brands"
-  ) + 
-  geom_text(
-    aes(x = 0, y = 3, label = fallback_text), 
-    family = "Font Awesome 5 brands"
-  ) + 
-  geom_text(
-    aes(x = 0, y = 3, label = emojis), 
-    family = "Font Awesome 5 brands"
-  ) + 
-  expand_limits(y = c(0, 5))
-p
-```
-
-
-
-## 그래프 - `ggplot` {#typeface-vs-font-ggplot}
-
-```{r test-fonts}
-code <- "x <- y != z"
-logo <- "twitter"
-fallback_text <- "This is English, 이것은 한국어다. この文は日本語です 🚀"
-emojis <- "👩🏾💻🔥📊"
-korean_text <- "다람쥐 헌 쳇바퀴에 타고파"
-english_text <- "The quick brown fox jumps over the lazy dog"
-
-ggplot() + 
-  geom_text(
-    aes(x = 0, y = 1, label = code), 
-    family = "Fira Code") + 
-  geom_text(
-    aes(x = 0, y = 2, label = logo), 
-    family = "") + 
-  geom_text(
-    aes(x = 0, y = 3, label = fallback_text), 
-    family = "") + 
-  geom_text(
-    aes(x = 0, y = 4, label = emojis), 
-    family = "") + 
-  geom_text(
-    aes(x = 0, y = 5, label = korean_text), 
-    family = "NanumGothic") + 
-  geom_text(
-    aes(x = 0, y = 6, label = english_text), 
-    family = "") + 
-  expand_limits(y = c(0, 5)) +
-  theme_void(base_family = 'Open Sans')
-  # theme(text = element_text(family = 'Open Sans'))
-```
-
-```{r typeface-font}
-ggplot() + 
-  geom_text(
-    aes(x = -0.1, y = 5, label = korean_text), 
-    family = "NanumGothic") + 
-  geom_text(
-    aes(x = 0, y = 2, label = logo), 
-    family = "") + 
-  geom_text(
-    aes(x = 0, y = 3, label = fallback_text), 
-    family = "") + 
-  geom_text(
-    aes(x = 0, y = 4, label = emojis), 
-    family = "") + 
-  geom_text(
-    aes(x = 0, y = 5, label = korean_text), 
-    family = "NanumGothic") + 
-  geom_text(
-    aes(x = 0, y = 6, label = english_text), 
-    family = "NanumGothic") + 
-  expand_limits(y = c(0, 5)) 
-```
-
-## 설치된 글꼴 확인 {#check-fonts}
-
-[`systemfonts`](https://github.com/r-lib/systemfonts) 팩키지를 활용하여 로컬 컴퓨터에서 설치된 글꼴을 확인할 수 있다.
-
-```{r check-fonts}
-library(systemfonts)
-
-match_font('NanumGothic')
-
-system_fonts() %>% 
-  filter(str_detect(family, "Noto"))
-```
-
-"다람쥐 헌 쳇바퀴에 타고파" 문장을 글꼴과 굵기를 달리하여 `ggplot`에 시각화해보자.
-
-```{r how-to-set-default-fonts}
-library(extrafont)
-# extrafont::font_import(pattern = "NanumBarunGothicBold",  prompt = FALSE)
-# extrafont::font_import(pattern = "NanumBarunGothicLight", prompt = FALSE)
-loadfonts()
-
-ggplot() + 
-  geom_text(
-    aes(x = -0.1, y = 5, label = korean_text),
-    family = "Noto Sans CJK KR", fontface = "plain", size = 7) + 
-  geom_text(
-    aes(x = -0.1, y = 4, label = korean_text),
-    family = "Noto Sans CJK KR", fontface = "bold", size = 7) + 
-  geom_text(
-    aes(x = -0.1, y = 3, label = korean_text),
-    family = "NanumGothic", fontface = 1.5, size = 7) + 
-  geom_text(
-    aes(x = -0.1, y = 2, label = korean_text),
-    family = "NanumGothic", fontface = 2, size = 7) + 
-  labs(title = korean_text) +
-  expand_limits(y = c(1, 5))  +
-  # theme(text = element_text(face="bold")) +
-  theme_gray(base_family = "Noto Sans CJK KR")
-```
-
-# 글꼴 출력 [^rewrite-font] {#print-fonts}
-
-[^rewrite-font]: [Cookbook for R >> Graphs >> Fonts](http://www.cookbook-r.com/Graphs/Fonts/)
+`fontface`에 대한 감을 갖기 위해 대표 글꼴을 `ggplot`으로 화면에 찍어본다.
 
 ```{r print-fonts}
 library(tidyverse)
@@ -337,22 +179,142 @@ fullfonts %>%
   facet_wrap(~ Face, ncol=2)
 ```
 
-# 글꼴 분류 {#font-classification}
+# R 글꼴 {#r-device}
 
-# 구글 노토 폰트 {#google-noto-fonts}
+`ggplot`에 텍스트를 화면에 표현하는 그래픽 장치(Graphics Device, GD)는 5가지가 존재한다.
 
-## 폰트 설치 {#google-noto-fonts-install}
+-   `png()`
+-   `pdf()`
+-   스크린 화면 : Windows
+-   스크린 화면 : Mac
+-   스크린 화면 : Linux
 
-Noto 폰트는 구글이 `tofu` 문제를 해결하고자 제시한 무료오픈 글꼴이다. 대표적으로 노토 산스와 노토 세리프 한글 글꼴을 제공하고 있어 이를 설치하여 활용하는 방법을 찾아보자.
+5가지 그래픽 장치는 서로 달라 정확한 텍스트를 화면이나 `png`, `pdf` 파일이나 이미지에 넣는 것은 쉽지 않지만, 다음 팩키지가 그 역할을 수행하고 있다.
 
-- [Noto Sans KR](https://fonts.google.com/specimen/Noto+Sans+KR)
-- [Noto Serif KR](https://fonts.google.com/specimen/Noto+Serif+KR)
+-   `showtext`
+-   `extrafont`
+-   `systemfonts`
 
-```{r google-noto-fonts}
+# `font` 문제지 {#font-playground-problem}
+
+`ggplot` 그래프에 담아내야 하는 글꼴은 다양한 것이 포함된다. 코드에 대한 글꼴(`consolas`, `D2 Coding` 등), 이모지 글꼴, 한글/영문 글꼴 등 다양한다.
+
+## 환경설정 {#english-test-environment}
+
+로고, 이모지, 코딩에 해당되는 글꼴을 R에서 불러와서 사용할 수 있도록 준비한다. `.ttf` 트루타입 폰트 대신 `.otf` 폰트를 설치할 수 있는 `showtext` 팩키지를 폰트 관리자(?)로 사용한다.
+
+```{r fonttype-face-logo, dev="ragg_png"}
 library(tidyverse)
+library(ragg)
+library(systemfonts)
+library(showtext)
+
+## 로고 
+font_add("Font Awesome 5 brands",
+         regular = "Font Awesome 5 Free-Regular-400.otf")
+
+## 코딩 - Consolas, D2 Coding
+font_add("Consolas",
+         regular    = "consola.ttf",
+         bold       = "consolab.ttf",
+         italic     = "consolai.ttf",
+         bolditalic = "consolaz.ttf")
+
+font_add("D2 Coding",
+         regular    = "D2Coding-Ver1.3.2-20180524.ttf",
+         bold       = "D2CodingBold-Ver1.3.2-20180524.ttf")
+
+## 이모지 폰트
+font_add("Twitter Color Emoji",
+         regular    = "TwitterColorEmoji-SVGinOT.ttf")
+# font_add("Noto Color Emoji",
+#          regular    = "NotoColorEmoji.ttf")
+
+font_families()
+```
+
+## 영문 테스트 {#english-test}
+
+"The quick brown fox jumps over the lazy dog" 영문 텍스트와 관련하여 영어로 생길 수 있는 다양한 사례를 바탕으로 글꼴을 `ggplot`에 찍어보자.
+
+```{r fonttype-face, dev="ragg_png", eval = FALSE}
+## 예제 텍스트 
+
+code <- "x <- y != z : Consolas"
+logo <- "twitter : Font Awesome 5 brands"
+fallback_text <- "This is English, 이것은 한국어다. この文は日本語です 🚀"
+emojis <- "👩🏾💻🔥📊🤩🧑🦯"
+english_text <- "The quick brown fox jumps over the lazy dog"
+
+
+eng_p <- ggplot() + 
+  geom_text(
+    aes(x = 0, y = 5, label = code), 
+    family = "Consolas", size = 15
+  ) + 
+  geom_text(
+    aes(x = 0, y = 4, label = logo), 
+    family = "Font Awesome 5 brands", size = 15
+  ) + 
+  geom_text(
+    aes(x = 0, y = 3, label = fallback_text), 
+    family = "serif", size = 15
+  ) + 
+  geom_text(
+    aes(x = 0, y = 2, label = emojis), 
+    family = "Twitter Color Emoji", size = 15
+  ) + 
+  geom_text(
+    aes(x = 0, y = 1, label = english_text), 
+    family = "sans", size = 15
+  ) + 
+  expand_limits(y = c(0, 5)) +
+  theme_void()
+
+eng_p %>% 
+  ggsave(filename = "fig/ggplot-tyopgraphy-eng.png")
 
 ```
 
-먼저 [Google Fonts](https://fonts.google.com/) 웹사이트에서 폰트를 다운로드 받아 로컬 컴퓨터 운영체제에 설치한다.
+![](fig/ggplot-tyopgraphy-eng.png)
 
+## 한글 테스트 {#korean-test}
 
+```{r fonttype-face-korean, dev="ragg_png", eval = FALSE}
+## 예제 텍스트 
+korean_text <- "다람쥐 헌 쳇바퀴에 타고파: Noto Sans CJK KR"
+korean_code <- "library(tidyvere); x <- y != z; #한글 주석 : D2 Coding"
+logo <- "twitter"
+emojis <- "👩🏾💻🔥📊🤩🧑🦯"
+fallback_text <- "This is English, 이것은 한국어다. この文は日本語です 🚀: Noto Sans CJK KR"
+
+# 시각화
+kor_p <- ggplot() + 
+  geom_text(
+    aes(x = 0, y = 5, label = korean_text), 
+    family = "Noto Sans CJK KR", size = 15
+  ) + 
+  geom_text(
+    aes(x = 0, y = 4, label = korean_code), 
+    family = "D2 Coding", size = 15
+  ) + 
+  geom_text(
+    aes(x = 0, y = 3, label = logo), 
+    family = "Font Awesome 5 brands", size = 15
+  ) + 
+  geom_text(
+    aes(x = 0, y = 2, label = emojis), 
+    family = "Twitter Color Emoji", size = 15
+  ) + 
+  geom_text(
+    aes(x = 0, y = 1, label = fallback_text), 
+    family = "Noto Sans CJK KR", size = 15
+  ) + 
+  expand_limits(y = c(0, 5)) +
+  theme_void()
+
+kor_p %>% 
+  ggsave(filename = "fig/ggplot-tyopgraphy.png")
+```
+
+![](fig/ggplot-tyopgraphy.png)
