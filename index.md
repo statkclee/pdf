@@ -26,7 +26,7 @@ title: "PDF를 데이터로 보는 올바른 자세"
     - [이미지 PDF 파일 데이터 추출](ds-extract-text-from-pdf.html)
     - [~~기계판독~~ **불**가능한 PDF 문서에서 표추출](pdf-image-extract-table.html)
     - [OCR:: 기계판독 가능한 테이블(표)](ocr-table.html)
-- **광학문자인식(OCR, Optical Character Recognition)**
+- [광학문자인식(OCR, Optical Character Recognition)](pdf-ocr.html)
     - [검정배경 흰색글자 인식](ocr-white-character.html)
     - [문자 분리(character segmentation)](ocr-white-segmentation.html)
     - [애비(Abbyy): Access Abbyy Cloud OCR from R](ocr-abbyy.html)
