@@ -40,5 +40,5 @@ title: "PDF를 데이터로 보는 올바른 자세"
         - [문서 `style`](pdf-rmd-style.html)
     - [R 마크다운 폰트 CSS](pdf-rmd-css-fonts.html)
         - [문서 `css`](pdf-rmd-css.html)
-
+- [태써랙트(Tesseract)](pdf-tesseract.html)
 

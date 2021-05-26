@@ -1,0 +1,154 @@
+---
+layout: page
+title: "PDF를 데이터로 보는 올바른 자세"
+subtitle: "태써랙트(Tesseract)"
+author:
+- name: "이광춘"
+  affiliation: "[Tidyverse Korea](https://www.facebook.com/groups/tidyverse/)"
+date: "`r Sys.Date()`"
+tags: ["데이터 과학", "Data Science", "데이터 사이언스", "PDF", "목차", "Table of Contents", "TOC", "OCR", "광학문자인식", "Optical Character Recognition", "tesseract", "Google", "HP"]
+output:
+  html_document: 
+    include:
+      after_body: footer.html
+      before_body: header.html
+    theme: journal
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+    highlight: tango
+    code_folding: show
+    number_section: true
+    self_contained: true
+bibliography: bibliography_pdf.bib
+csl: biomed-central.csl
+urlcolor: blue
+linkcolor: blue
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE,
+                    comment="", digits = 3, tidy = FALSE, prompt = FALSE, fig.align = 'center')
+
+library(tidyverse)
+```
+
+# 설치 [^install] {#install-mac}
+
+[^install]: [tessdoc - `tesseract`](https://tesseract-ocr.github.io/tessdoc/Installation.html)
+
+맥에서 tesseract를 설치할 경우 [tessdoc - `tesseract`](https://tesseract-ocr.github.io/tessdoc/Installation.html)을 참조하여 운영체제에 맞춰 설치하면 된다. [언어팩](https://ports.macports.org/?search=tesseract-&search_by=name)에서 보면 한국어가 존재하지 않는다. ㅠ.ㅠ
+
+```{r install-mac, eval=FALSE}
+# MacPorts
+sudo port install tesseract
+
+# Homebrew
+brew install tesseract
+
+# 한국어 모듈 설치
+brew install tesseract-lang
+```
+
+
+## CLI 테스트 {#test-OCR}
+
+다음 단계로 tesseract 를 활용하여 CLI에서 이미지속에 담긴 텍스트를 추출해보자. `fig/ocr-receipt.png` 이미지를 대상으로 CLI에서 텍스트를 인식해보자.
+
+![](fig/ocr-receipt.png)
+
+먼저 영수증을 tesseract로 인식해서 `fig/ocr-receipt.txt` 파일로 저장한다. 언어는 영어로 지정한다.
+
+```{bash cli-test}
+tesseract fig/ocr-receipt.png fig/ocr-receipt -l eng
+```
+
+영수증을 OCR 한 결과와 원본 영수증 이미지를 검증하고자 원문 영수증 이미지와 OCR 된 결과를 한 이미지로 묶어 준비한다.
+
+```{r check-ocr-result}
+library(tidyverse)
+library(magick)
+
+receipt_png <- image_read("fig/ocr-receipt.png")
+
+receipt_png <- receipt_png %>% 
+  image_resize("700x710")
+
+white_png <- image_blank(width  = image_info(receipt_png) %>% select(width) %>% pull, 
+                         height = image_info(receipt_png) %>% select(height) %>% pull, 
+                         color = "gray75", pseudo_image = "", defines = NULL)
+
+combined_img <- c(receipt_png, white_png)
+
+image_append(combined_img, stack = FALSE)
+```
+
+OCR된 텍스트 파일을 불러읽어 원본 영수증 이미지와 대사하기 위해 이미지에 찍어둔다.
+
+```{r OCRed-image}
+OCRed_text <- read_lines("fig/ocr-receipt.txt")
+
+OCRed_text <- paste0(OCRed_text, collapse = "\n")
+
+OCRed_png <- white_png %>% 
+  image_annotate(OCRed_text, location = "+10+10", size = 19, font = "AppleGothic")
+
+OCRed_png
+```
+
+원본 영수증 이미지와 OCR된 결과 이미지를 결합시켜 눈으로 결과를 파악한다.
+
+```{r OCRed-image-combined}
+image_append(c(receipt_png, OCRed_png), stack = FALSE)
+```
+
+
+## 한글 OCR 테스트 {#test-OCR-korean}
+
+이번에는 한글 영수증을 하나 구해 OCR 작업을 수행해보자. 한글이 포함된 이미지라는 것을 알기 때문에 `-l kor`로 언어로 한글을 지정하여 한글을 우선 인식한다.
+
+![](fig/ocr-receipt-korean.jpg)
+
+```{bash korean-receipt}
+tesseract fig/ocr-receipt-korean.jpg fig/ocr-receipt-korean -l kor
+```
+
+상기 작업결과는 `fig/ocr-receipt-korean.txt` 파일에 저장된다.
+
+OCR 결과 검증을 위해서 한글 영수증 이미지와 OCR 된 텍스트를 함께 나란히 놓고 비교해 보자. 
+
+```{r display-ocred-image}
+
+display_ocr_text <- function() {
+  ## 원본 이미지
+  receipt_image <- image_read("fig/ocr-receipt-korean.jpg")
+  
+  receipt_image <- receipt_image %>%
+    image_resize("700x710")
+
+  ## 빈 도화지 + OCR된 텍스트
+  white_image <- image_blank(width  = image_info(receipt_image) %>% select(width) %>% pull, 
+                           height = image_info(receipt_image) %>% select(height) %>% pull, 
+                           color = "gray75", pseudo_image = "", defines = NULL)
+
+  OCRed_korean_text <- read_lines("fig/ocr-receipt-korean.txt")
+  
+  OCRed_korean_text <- paste0(OCRed_korean_text, collapse = "\n")
+  
+  OCRed_korean_png <- white_image %>% 
+    image_annotate(OCRed_korean_text, location = "+10+10", size = 15, font = "AppleGothic")
+  
+  ## 결합
+  receipt_ocr_img <- c(receipt_image, OCRed_korean_png)
+  
+  return(image_append(receipt_ocr_img, stack = FALSE))
+}
+
+display_ocr_text()
+```
+
+
+
+
