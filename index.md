@@ -41,4 +41,5 @@ title: "PDF를 데이터로 보는 올바른 자세"
     - [R 마크다운 폰트 CSS](pdf-rmd-css-fonts.html)
         - [문서 `css`](pdf-rmd-css.html)
 - [태써랙트(Tesseract)](pdf-tesseract.html)
+    - [자동차 번호판 인식](pdf-car-plate-number.html)
 
