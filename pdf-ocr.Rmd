@@ -12,7 +12,7 @@ output:
     include:
       after_body: footer.html
       before_body: header.html
-    theme: journal
+    theme: default
     toc: yes
     toc_depth: 2
     toc_float: true
@@ -90,3 +90,14 @@ OCR 작업흐름은 텍스트가 담긴 이미지를 바로 OCR 작업을 돌릴
 -   [MJSynth Dataset](https://www.robots.ox.ac.uk/~vgg/data/text/#sec-synth)
 -   [IIIT 5K-word dataset](https://cvit.iiit.ac.in/research/projects/cvit-projects/the-iiit-5k-word-dataset)
 -   [Street View House Numbers (SVHN) Dataset](http://ufldl.stanford.edu/housenumbers/)
+
+## 한글 OCR 데이터셋 {#ocr-dataset-text-detection-kor}
+
+- [KAIST Scene Text Database](http://www.iapr-tc11.org/mediawiki/index.php/KAIST_Scene_Text_Database)
+- AI Hub
+    - [고서 한자 인식 OCR](https://aihub.or.kr/aidata/30753)
+    - [공공행정문서 OCR](https://aihub.or.kr/aidata/30724)
+    
+
+
+
