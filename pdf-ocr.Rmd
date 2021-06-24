@@ -98,6 +98,105 @@ OCR 작업흐름은 텍스트가 담긴 이미지를 바로 OCR 작업을 돌릴
     - [고서 한자 인식 OCR](https://aihub.or.kr/aidata/30753)
     - [공공행정문서 OCR](https://aihub.or.kr/aidata/30724)
     
+# OCR 문자인식 성능 [@hubert2016training] {#ocr-performance}
+
+문자수준 (character recognition accuracy - CRA)과 단어수준 (word recognition accuracy - WRA) 지표를 통해 OCR 성능을 평가할 수 있다.
+
+$$\text{WRA} = \frac{W_r}{W}$$
+$$\text{WER} = 1 - \text{WRA} = 1 \frac{W_r}{W}$$
+
+그외 NED(Normalized Edit Distance), F-Score, AED(Average Edit Distance) 등이 있다.
+
+## ICDAR 2019
+
+[ICDAR 2019 Robust Reading Challenge on Scanned Receipts OCR and Information Extraction](https://rrc.cvc.uab.es/?ch=13) 경진대회를 통해 영수증 등 스캔된 문서의 OCR 성능을 파악할 수 있다.
+
+
+![](fig/sample21.jpg)
+
+## 텍스트 탐지 알고리즘 순위 {#text-detection-rank}
+
+CTPN, EAST 등과 같은 전통 알고리즘이 약 90%를 보였다면 TLGAN은 99% 텍스트 탐지 정확도를 보이고 있다.
+
+- EAST: 약 90 % 초반
+- CTPN: 약 85~90 %
+- TLGAN (Text Localization Generative Adversarial Nets): 99 %
+
+```{r rvest-ocr-rank}
+library(tidyverse)
+library(rvest)
+library(reactable)
+
+ocr_task_1_html <- read_html(x ="https://rrc.cvc.uab.es/?ch=13&com=evaluation&task=1") 
+
+ocr_text_detection <- ocr_task_1_html %>% 
+  html_node(xpath = '//*[@id="table-1-1"]') %>% 
+  html_table() %>% 
+  janitor::clean_names() %>% 
+  as_tibble()
+
+ocr_text_detection %>% 
+  select(team = method, recall, precision, hmean) %>% 
+  mutate_at(vars(recall:hmean), parse_number) %>% 
+  mutate_at(vars(recall:hmean), ~ ./100) %>% 
+  reactable(columns = list(
+    recall    = colDef(format = colFormat(percent = TRUE, digits = 1)),
+    precision = colDef(format = colFormat(percent = TRUE, digits = 1)),
+    hmean     = colDef(format = colFormat(percent = TRUE, digits = 1))))
+```
+
+
+## 텍스트 인식 알고리즘 순위 {#text-recognition-rank}
+
+- CRNN : 약 87% 정확도
+- CTC: 약 87% 정확도
+- CNN-RNN + LM + Attention: 97%
+
+```{r rvest-recognition-rank}
+
+ocr_task_2_html <- read_html(x ="https://rrc.cvc.uab.es/?ch=13&com=evaluation&task=2") 
+
+ocr_text_reconition <- ocr_task_2_html %>% 
+  html_node(xpath = '//*[@id="table-1-1"]') %>% 
+  html_table() %>% 
+  janitor::clean_names() %>% 
+  as_tibble()
+
+ocr_text_reconition %>% 
+  select(team = method, recall, precision, hmean) %>% 
+  mutate_at(vars(recall:hmean), parse_number) %>% 
+  mutate_at(vars(recall:hmean), ~ ./100) %>% 
+  reactable(columns = list(
+    recall    = colDef(format = colFormat(percent = TRUE, digits = 1)),
+    precision = colDef(format = colFormat(percent = TRUE, digits = 1)),
+    hmean     = colDef(format = colFormat(percent = TRUE, digits = 1))))
+
+```
+
+## 중요정보 추출 알고리즘 순위 {#text-keyinfo-rank}
+
+OCR 된 텍스트로부터 company, address, total, date 등 중요정보 추출하여 알고리즘 성능을 비교합니다.
+
+```{r rvest-keyinfo-rank}
+
+ocr_task_3_html <- read_html(x ="https://rrc.cvc.uab.es/?ch=13&com=evaluation&task=3") 
+
+ocr_info_extraction <- ocr_task_3_html %>% 
+  html_node(xpath = '//*[@id="table-1-1"]') %>% 
+  html_table() %>% 
+  janitor::clean_names() %>% 
+  as_tibble()
+
+ocr_info_extraction %>% 
+  select(team = method, recall, precision, hmean) %>% 
+  mutate_at(vars(recall:hmean), parse_number) %>% 
+  mutate_at(vars(recall:hmean), ~ ./100) %>% 
+  reactable(columns = list(
+    recall    = colDef(format = colFormat(percent = TRUE, digits = 1)),
+    precision = colDef(format = colFormat(percent = TRUE, digits = 1)),
+    hmean     = colDef(format = colFormat(percent = TRUE, digits = 1))))
+
+```
 
 
 
