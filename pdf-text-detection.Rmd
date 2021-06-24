@@ -1,0 +1,50 @@
+---
+layout: page
+title: "PDF를 데이터로 보는 올바른 자세"
+subtitle: "텍스트 탐지(Text Detection)"
+author:
+- name: "이광춘"
+  affiliation: "[Tidyverse Korea](https://www.facebook.com/groups/tidyverse/)"
+date: "`r Sys.Date()`"
+tags: ["데이터 과학", "Data Science", "데이터 사이언스", "PDF", "표", "테이블", "table", "OCR", "텍스트 탐지"]
+output:
+  html_document: 
+    include:
+      after_body: footer.html
+      before_body: header.html
+    theme: default
+    toc: yes
+    toc_depth: 2
+    toc_float: true
+    highlight: tango
+    code_folding: show
+    number_section: true
+    self_contained: false
+bibliography: bibliography_pdf.bib
+csl: biomed-central.csl
+mainfont: NanumGothic
+urlcolor: blue
+linkcolor: blue
+editor_options: 
+  chunk_output_type: console
+header-includes:
+   - \usepackage{gensymb}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE,
+                      comment="", digits = 3, tidy = FALSE, prompt = FALSE, fig.align = 'center')
+
+```
+
+
+# 텍스트 탐지 알고리즘 {#text-detection}
+
+텍스트 탐지 (Text Detection) 알고리즘은 EAST, CTPN 알고리즘이 널리 알려져 있다.
+
+- EAST 알고리즘(Efficient and Accurate Scene Text Detector) [@zhou2017east]
+- CTPN 알고리즘(Connectionist Text Proposal Network) [@tian2016detecting]
+
+
+
+
