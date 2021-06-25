@@ -27,6 +27,7 @@ title: "PDF를 데이터로 보는 올바른 자세"
     - [~~기계판독~~ **불**가능한 PDF 문서에서 표추출](pdf-image-extract-table.html)
     - [OCR:: 기계판독 가능한 테이블(표)](ocr-table.html)
 - [광학문자인식(OCR, Optical Character Recognition)](pdf-ocr.html)
+    - [라벨(annotation) 데이터](pdf-annotation-data.html)
     - [텍스트 탐지(Text Detection)](pdf-text-detection.html)
 - [워드 파일에서 표(table) 추출](word-table-extraction.html)
 - [디지털 타이포그래피(Digital Typography)](pdf-typography.html)
