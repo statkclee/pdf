@@ -30,7 +30,7 @@ title: "PDF를 데이터로 보는 올바른 자세"
     - [라벨(annotation) 데이터](pdf-annotation-data.html)
     - [텍스트 탐지(Text Detection)](pdf-text-detection.html)
 - [워드 파일에서 표(table) 추출](word-table-extraction.html)
-- [1 페이지 두쪽 인쇄 &rarr; 다시 원복](two-page-to-one-slide.html)
+- [1 페이지 두쪽 인쇄 &rarr; 다시 원복](two-page-one-slide.html)
 - [디지털 타이포그래피(Digital Typography)](pdf-typography.html)
     - [구글 노토(Noto)](pdf-noto.html)
     - [**글꼴(font)**](pdf-fonts.html)
