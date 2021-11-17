@@ -19,10 +19,13 @@ library(pdftools)
 
 fs::dir_create("data/rconf_slipsheet")
 
-## 1. 오프닝과 마무리 --------
+## 1. 오프닝과 마무리, 키노트 --------
 pdftools::pdf_subset(get_filename("마무리"), pages = 1:4, output = "data/rconf_slipsheet/opening.pdf")
 
 pdftools::pdf_subset(get_filename("마무리"), pages = 5, output = "data/rconf_slipsheet/ending.pdf")
+
+pdftools::pdf_subset(get_filename("마무리"), pages = 2, output = "data/rconf_slipsheet/keynote_program.pdf")
+
 
 ## 2. 실시간 ----------
 ### 2.0. 시작간지 ------
@@ -134,4 +137,26 @@ pdftools::pdf_combine(c("data/rconf_slipsheet/opening.pdf",
                         "data/rconf_slipsheet/녹화강연_박상훈.pdf",
                         "data/rconf_slipsheet/ending.pdf"
 ), output = "data/rconf_slipsheet/record.pdf")
+
+## 4. 키노트 ----------
+### 4.0. 시작간지 ------
+# `opening.pdf` 로 갈음함
+
+### 4.1. 이광춘 ------
+pdftools::pdf_combine(c("data/rconf_slipsheet/opening.pdf", get_filename("오프닝")), 
+                      output = "data/rconf_slipsheet/keynote_opening.pdf")
+
+### 4.2. Julia Silge ------
+pdftools::pdf_combine(c("data/rconf_slipsheet/keynote_program.pdf", get_filename("Julia")), 
+                      output = "data/rconf_slipsheet/keynote_juila.pdf")
+
+### 4.3. 유충현 ------
+pdftools::pdf_combine(c("data/rconf_slipsheet/keynote_program.pdf", get_filename("유충현")), 
+                      output = "data/rconf_slipsheet/keynote_유충현.pdf")
+
+### 4.99. 취합 ------
+pdftools::pdf_combine(c("data/rconf_slipsheet/keynote_opening.pdf",
+                        "data/rconf_slipsheet/keynote_juila.pdf",
+                        "data/rconf_slipsheet/keynote_유충현.pdf"
+), output = "data/rconf_slipsheet/keynote.pdf")
 
