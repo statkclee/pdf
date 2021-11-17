@@ -157,6 +157,7 @@ pdftools::pdf_combine(c("data/rconf_slipsheet/keynote_program.pdf", get_filename
 ### 4.99. 취합 ------
 pdftools::pdf_combine(c("data/rconf_slipsheet/keynote_opening.pdf",
                         "data/rconf_slipsheet/keynote_juila.pdf",
-                        "data/rconf_slipsheet/keynote_유충현.pdf"
+                        "data/rconf_slipsheet/keynote_유충현.pdf",
+                        "data/rconf_final/rconf_lunchtime.pptx.pdf"
 ), output = "data/rconf_slipsheet/keynote.pdf")
 
